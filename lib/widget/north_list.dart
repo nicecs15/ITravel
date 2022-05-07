@@ -11,7 +11,7 @@ class _NorthListState extends State<NorthList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Text('งุงิ'),
+      body: Text('456'),
     );
   }
 }

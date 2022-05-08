@@ -11,7 +11,7 @@ class _IsanListState extends State<IsanList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Text('this is isan'),
+      body: Text('หน้าอีสาน'),
     );
   }
 }

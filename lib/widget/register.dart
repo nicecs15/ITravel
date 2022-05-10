@@ -22,7 +22,7 @@ class _RegisterState extends State<Register> {
       //floatingActionButton: buildFloatingActionButton(),
       appBar: AppBar(
         backgroundColor: MyStyle().primaryColor,
-        title: Text('New Register'),
+        title: Text('สร้างบัญชีผู้ใช้'),
       ),
       body: Center(
         child: Column(
@@ -61,7 +61,7 @@ class _RegisterState extends State<Register> {
             registerFirebase();
           }
         },
-        child: Text('Register'),
+        child: Text('สมัครสมาชิก'),
         style: ElevatedButton.styleFrom(
           primary: MyStyle().darkColor,
           shape: RoundedRectangleBorder(
@@ -75,7 +75,7 @@ class _RegisterState extends State<Register> {
   Container buildName() {
     return Container(
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15), color: Colors.white60),
+          borderRadius: BorderRadius.circular(25), color: Colors.white60),
       margin: EdgeInsets.only(top: 20),
       width: screen * 0.75,
       child: TextField(
@@ -85,17 +85,17 @@ class _RegisterState extends State<Register> {
         ),
         decoration: InputDecoration(
           hintStyle: TextStyle(color: MyStyle().darkColor),
-          hintText: '  Name :',
+          hintText: '  ชื่อผู้ใช้ :',
           /*prefixIcon: Icon(
             Icons.fingerprint,
             color: MyStyle().darkColor,
           ),*/
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(15),
+            borderRadius: BorderRadius.circular(25),
             borderSide: BorderSide(color: MyStyle().darkColor),
           ),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(15),
+            borderRadius: BorderRadius.circular(25),
             borderSide: BorderSide(color: MyStyle().lightColor),
           ),
         ),
@@ -106,7 +106,7 @@ class _RegisterState extends State<Register> {
   Container buildEmail() {
     return Container(
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15), color: Colors.white60),
+          borderRadius: BorderRadius.circular(25), color: Colors.white60),
       margin: EdgeInsets.only(top: 16),
       width: screen * 0.75,
       child: TextField(
@@ -117,17 +117,17 @@ class _RegisterState extends State<Register> {
         ),
         decoration: InputDecoration(
           hintStyle: TextStyle(color: MyStyle().darkColor),
-          hintText: '  Email :',
+          hintText: '  อีเมล :',
           /*prefixIcon: Icon(
             Icons.perm_identity,
             color: MyStyle().darkColor,
           ),*/
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(15),
+            borderRadius: BorderRadius.circular(25),
             borderSide: BorderSide(color: MyStyle().darkColor),
           ),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(15),
+            borderRadius: BorderRadius.circular(25),
             borderSide: BorderSide(color: MyStyle().lightColor),
           ),
         ),
@@ -138,7 +138,7 @@ class _RegisterState extends State<Register> {
   Container buildPassword() {
     return Container(
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15), color: Colors.white60),
+          borderRadius: BorderRadius.circular(25), color: Colors.white60),
       margin: EdgeInsets.only(top: 16),
       width: screen * 0.75,
       child: TextField(
@@ -148,17 +148,17 @@ class _RegisterState extends State<Register> {
         ),
         decoration: InputDecoration(
           hintStyle: TextStyle(color: MyStyle().darkColor),
-          hintText: '  Password :',
+          hintText: '  รหัสผ่าน :',
           /*prefixIcon: Icon(
             Icons.lock_outline,
             color: MyStyle().darkColor,
           ),*/
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(15),
+            borderRadius: BorderRadius.circular(25),
             borderSide: BorderSide(color: MyStyle().darkColor),
           ),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(15),
+            borderRadius: BorderRadius.circular(25),
             borderSide: BorderSide(color: MyStyle().lightColor),
           ),
         ),
@@ -166,26 +166,7 @@ class _RegisterState extends State<Register> {
     );
   }
 
-  /*FloatingActionButton buildFloatingActionButton() {
-    return FloatingActionButton(
-      backgroundColor: MyStyle().darkColor,
-      onPressed: () {
-        print('name = $name, user = $user, password = $password');
-        if ((name == null) || (user == null) || (password == null)) {
-          print('Have Space');
-          normalDialog(context, 'Have Space? Please Fill Every Blank');
-        } else {
-          print('No Space');
-          registerFirebase();
-        }
-      },
-      child: Icon(
-        Icons.cloud_upload_rounded,
-      ),
-    );
-  }*/
-
-  Future<Null> registerFirebase() async {
+  Future<void> registerFirebase() async {
     await Firebase.initializeApp().then((value) async {
       print('Firebase Initialize Success');
       await FirebaseAuth.instance

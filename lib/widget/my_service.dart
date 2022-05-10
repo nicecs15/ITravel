@@ -5,6 +5,7 @@ import 'package:myapp1/utility/my_style.dart';
 import 'package:myapp1/widget/central_list.dart';
 import 'package:myapp1/widget/isan_list.dart';
 import 'package:myapp1/widget/like_list.dart';
+import 'package:myapp1/widget/%E0%B9%89homepage.dart';
 import 'package:myapp1/widget/north_list.dart';
 import 'package:myapp1/widget/profile.dart';
 import 'package:myapp1/widget/south_list.dart';
@@ -19,7 +20,7 @@ class MyService extends StatefulWidget {
 class _MyServiceState extends State<MyService> {
   String? name, email;
 
-  Widget currentWidget = NorthList();
+  Widget currentWidget = Homepage();
 
   @override
   void initState() {
@@ -200,7 +201,7 @@ class _MyServiceState extends State<MyService> {
             color: Colors.white,
             size: 36,
           ),
-          title: MyStyle().titleH2White('Sign Out'),
+          title: MyStyle().titleH2White('ออกจากระบบ'),
         ),
       ],
     );

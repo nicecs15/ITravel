@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:myapp1/utility/my_style.dart';
 import 'package:myapp1/widget/central_list.dart';
 import 'package:myapp1/widget/isan_list.dart';
+import 'package:myapp1/widget/like_list.dart';
 import 'package:myapp1/widget/north_list.dart';
+import 'package:myapp1/widget/profile.dart';
 import 'package:myapp1/widget/south_list.dart';
 
 class MyService extends StatefulWidget {
@@ -60,6 +62,7 @@ class _MyServiceState extends State<MyService> {
               buildListTileIsanList(),
               buildListTileCentralList(),
               buildListTileSouthList(),
+              buildListTileLikeList(),
             ],
           ),
           buildSignOut(),
@@ -72,7 +75,7 @@ class _MyServiceState extends State<MyService> {
     return ListTile(
       leading: Icon(
         Icons.home,
-        size: 36,
+        size: 28,
         color: Colors.red,
       ),
       title: MyStyle().titleH3('ภาคเหนือ'),
@@ -90,7 +93,7 @@ class _MyServiceState extends State<MyService> {
     return ListTile(
       leading: Icon(
         Icons.home,
-        size: 36,
+        size: 28,
         color: Colors.red,
       ),
       title: MyStyle().titleH3('ภาคอีสาน'),
@@ -108,7 +111,7 @@ class _MyServiceState extends State<MyService> {
     return ListTile(
       leading: Icon(
         Icons.home,
-        size: 36,
+        size: 28,
         color: Colors.red,
       ),
       title: MyStyle().titleH3('ภาคกลาง'),
@@ -126,7 +129,7 @@ class _MyServiceState extends State<MyService> {
     return ListTile(
       leading: Icon(
         Icons.home,
-        size: 36,
+        size: 28,
         color: Colors.red,
       ),
       title: MyStyle().titleH3('ภาคใต้'),
@@ -140,17 +143,43 @@ class _MyServiceState extends State<MyService> {
     );
   }
 
+  ListTile buildListTileLikeList() {
+    return ListTile(
+      leading: Icon(
+        Icons.favorite,
+        size: 28,
+        color: Colors.red,
+      ),
+      title: MyStyle().titleH3('สถานที่ท่องเที่ยวที่ชื่นชอบ'),
+      subtitle: Text('รวมสถานที่ท่องเที่ยวที่คุณชื่นชอบ'),
+      onTap: () {
+        setState(() {
+          currentWidget = LikeList();
+        });
+        Navigator.pop(context);
+      },
+    );
+  }
+
 //head
   UserAccountsDrawerHeader buildUserAccountsDrawerHeader() {
     return UserAccountsDrawerHeader(
-      decoration: BoxDecoration(
-        image: DecorationImage(
-            image: AssetImage('images/wall.png'), fit: BoxFit.cover),
-      ),
-      accountName: MyStyle().titleH2White(name ?? 'Name'),
-      accountEmail: MyStyle().titleH3White(email ?? 'Email'),
-      currentAccountPicture: Image.asset('images/traveller.png'),
-    );
+        decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage('images/wall.png'), fit: BoxFit.cover),
+        ),
+        accountName: MyStyle().titleH2White(name ?? 'Name'),
+        accountEmail: MyStyle().titleH3White(email ?? 'Email'),
+        currentAccountPicture: IconButton(
+          icon: Image.asset('images/traveller.png'),
+          onPressed: () {
+            setState(() {
+              currentWidget = Profile();
+            });
+            Navigator.pop(context);
+          },
+        ) /*Image.asset('images/traveller.png')*/
+        );
   }
 
   Column buildSignOut() {

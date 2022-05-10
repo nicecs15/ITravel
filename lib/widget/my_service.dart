@@ -5,7 +5,7 @@ import 'package:myapp1/utility/my_style.dart';
 import 'package:myapp1/widget/central_list.dart';
 import 'package:myapp1/widget/isan_list.dart';
 import 'package:myapp1/widget/like_list.dart';
-import 'package:myapp1/widget/%E0%B9%89homepage.dart';
+import 'package:myapp1/widget/homepage.dart';
 import 'package:myapp1/widget/north_list.dart';
 import 'package:myapp1/widget/profile.dart';
 import 'package:myapp1/widget/south_list.dart';
@@ -45,7 +45,7 @@ class _MyServiceState extends State<MyService> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: MyStyle().primaryColor,
-        title: Text('รีวิวและแนะนำสถานที่ท่องเที่ยว'),
+        title: Text('หน้าหลัก'),
       ),
       drawer: buildDrawer(),
       body: currentWidget,
@@ -59,10 +59,7 @@ class _MyServiceState extends State<MyService> {
           Column(
             children: [
               buildUserAccountsDrawerHeader(),
-              buildListTileNorthList(),
-              buildListTileIsanList(),
-              buildListTileCentralList(),
-              buildListTileSouthList(),
+              buildListTileHomePage(),
               buildListTileLikeList(),
             ],
           ),
@@ -72,72 +69,17 @@ class _MyServiceState extends State<MyService> {
     );
   }
 
-  ListTile buildListTileNorthList() {
+  ListTile buildListTileHomePage() {
     return ListTile(
       leading: Icon(
         Icons.home,
         size: 28,
         color: Colors.red,
       ),
-      title: MyStyle().titleH3('ภาคเหนือ'),
-      subtitle: Text('รวมสถานที่ท่องเที่ยวในภาคเหนือ'),
+      title: MyStyle().titleH3('หน้าหลัก'),
       onTap: () {
         setState(() {
-          currentWidget = NorthList();
-        });
-        Navigator.pop(context);
-      },
-    );
-  }
-
-  ListTile buildListTileIsanList() {
-    return ListTile(
-      leading: Icon(
-        Icons.home,
-        size: 28,
-        color: Colors.red,
-      ),
-      title: MyStyle().titleH3('ภาคอีสาน'),
-      subtitle: Text('รวมสถานที่ท่องเที่ยวในภาคอีสาน'),
-      onTap: () {
-        setState(() {
-          currentWidget = IsanList();
-        });
-        Navigator.pop(context);
-      },
-    );
-  }
-
-  ListTile buildListTileCentralList() {
-    return ListTile(
-      leading: Icon(
-        Icons.home,
-        size: 28,
-        color: Colors.red,
-      ),
-      title: MyStyle().titleH3('ภาคกลาง'),
-      subtitle: Text('รวมสถานที่ท่องเที่ยวในภาคกลาง'),
-      onTap: () {
-        setState(() {
-          currentWidget = CentralList();
-        });
-        Navigator.pop(context);
-      },
-    );
-  }
-
-  ListTile buildListTileSouthList() {
-    return ListTile(
-      leading: Icon(
-        Icons.home,
-        size: 28,
-        color: Colors.red,
-      ),
-      title: MyStyle().titleH3('ภาคใต้'),
-      subtitle: Text('รวมสถานที่ท่องเที่ยวในภาคใต้'),
-      onTap: () {
-        setState(() {
-          currentWidget = SouthList();
+          currentWidget = Homepage();
         });
         Navigator.pop(context);
       },
@@ -146,20 +88,13 @@ class _MyServiceState extends State<MyService> {
 
   ListTile buildListTileLikeList() {
     return ListTile(
-      leading: Icon(
-        Icons.favorite,
-        size: 28,
-        color: Colors.red,
-      ),
-      title: MyStyle().titleH3('สถานที่ท่องเที่ยวที่ชื่นชอบ'),
-      subtitle: Text('รวมสถานที่ท่องเที่ยวที่คุณชื่นชอบ'),
-      onTap: () {
-        setState(() {
-          currentWidget = LikeList();
-        });
-        Navigator.pop(context);
-      },
-    );
+        leading: Icon(
+          Icons.favorite,
+          size: 28,
+          color: Colors.red,
+        ),
+        title: MyStyle().titleH3('สถานที่ท่องเที่ยวที่ชื่นชอบ'),
+        onTap: () => Navigator.pushNamed(context, '/like'));
   }
 
 //head
@@ -172,14 +107,9 @@ class _MyServiceState extends State<MyService> {
         accountName: MyStyle().titleH2White(name ?? 'Name'),
         accountEmail: MyStyle().titleH3White(email ?? 'Email'),
         currentAccountPicture: IconButton(
-          icon: Image.asset('images/traveller.png'),
-          onPressed: () {
-            setState(() {
-              currentWidget = Profile();
-            });
-            Navigator.pop(context);
-          },
-        ) /*Image.asset('images/traveller.png')*/
+            icon: Image.asset('images/traveller.png'),
+            onPressed: () => Navigator.pushNamed(
+                context, '/profile')) /*Image.asset('images/traveller.png')*/
         );
   }
 

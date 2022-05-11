@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myapp1/model/upload_status.dart';
 import 'package:myapp1/utility/my_style.dart';
 
 class NorthList extends StatefulWidget {
@@ -14,9 +15,15 @@ class _NorthListState extends State<NorthList> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: MyStyle().primaryColor,
-        title: Text('สถานที่ท่องเที่ยวในภาคเหนือ'),
+        title: const Text('สถานที่ท่องเที่ยวในภาคเหนือ'),
       ),
-      body: Text('แก้ไข'),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (_) => UploadStaus()));
+        },
+        child: const Icon(Icons.add_a_photo),
+      ),
     );
   }
 }

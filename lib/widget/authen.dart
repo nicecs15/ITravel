@@ -54,7 +54,7 @@ class _AuthenState extends State<Authen> {
     return TextButton(
       onPressed: () => Navigator.pushNamed(context, '/register'),
       child: Text(
-        'New Register',
+        'สร้างบัญชีผู้ใช้ใหม่',
         style: TextStyle(color: Colors.white),
       ),
     );
@@ -72,7 +72,7 @@ class _AuthenState extends State<Authen> {
             checkAuthen();
           }
         },
-        child: Text('Login'),
+        child: Text('เข้าสู่ระบบ'),
         style: ElevatedButton.styleFrom(
           primary: MyStyle().darkColor,
           shape: RoundedRectangleBorder(
@@ -86,7 +86,7 @@ class _AuthenState extends State<Authen> {
   Container buildUser() {
     return Container(
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(25), color: Colors.white70),
+          borderRadius: BorderRadius.circular(25), color: Colors.white60),
       margin: EdgeInsets.only(top: 16),
       width: screen * 0.75,
       child: TextFormField(
@@ -97,7 +97,7 @@ class _AuthenState extends State<Authen> {
         ),
         decoration: InputDecoration(
           labelStyle: TextStyle(color: MyStyle().darkColor),
-          labelText: 'Email :',
+          labelText: 'อีเมล',
           prefixIcon: Icon(
             Icons.perm_identity,
             color: MyStyle().darkColor,
@@ -143,7 +143,7 @@ class _AuthenState extends State<Authen> {
             },
           ),
           labelStyle: TextStyle(color: MyStyle().darkColor),
-          labelText: 'Password :',
+          labelText: 'รหัสผ่าน',
           prefixIcon: Icon(
             Icons.lock_outline,
             color: MyStyle().darkColor,

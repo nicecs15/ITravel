@@ -43,25 +43,25 @@ class _HomepageState extends State<Homepage> {
   ////////////////////////////////////////////////////////////////////////
   Card buildListTileNorthList() {
     return Card(
-      child: (Image.asset('images/north1.png')),
+      child: (Image.asset('images/north.png')),
     );
   }
 
   Card buildListTileIsanList() {
     return Card(
-      child: (Image.asset('images/isan1.png')),
+      child: (Image.asset('images/isan.png')),
     );
   }
 
   Card buildListTileCentralList() {
     return Card(
-      child: (Image.asset('images/central1.png')),
+      child: (Image.asset('images/central.png')),
     );
   }
 
   Card buildListTileSouthList() {
     return Card(
-      child: (Image.asset('images/south1.png')),
+      child: (Image.asset('images/south.png')),
     );
   }
 }

@@ -3,6 +3,7 @@ import 'package:myapp1/utility/my_style.dart';
 import 'package:myapp1/widget/central_list.dart';
 import 'package:myapp1/widget/isan_list.dart';
 import 'package:myapp1/widget/north_list.dart';
+import 'package:myapp1/widget/searchbar.dart';
 import 'package:myapp1/widget/south_list.dart';
 
 class Homepage extends StatefulWidget {
@@ -15,54 +16,52 @@ class Homepage extends StatefulWidget {
 class _HomepageState extends State<Homepage> {
   late double screen;
   Widget currentWidget = Homepage();
+
   @override
   Widget build(BuildContext context) {
     screen = MediaQuery.of(context).size.width;
     return Scaffold(
-      body: Column(
-        children: [
-          buildListTileNorthList(),
-          buildListTileIsanList(),
-          buildListTileCentralList(),
-          buildListTileSouthList(),
-        ],
+      body: Container(
+        margin: EdgeInsets.only(top: 60),
+        padding: const EdgeInsets.all(9.0), //ขยับขอบ
+        child: GridView.count(
+          crossAxisCount: 2,
+          childAspectRatio: .85,
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 10,
+          children: [
+            buildListTileNorthList(),
+            buildListTileIsanList(),
+            buildListTileCentralList(),
+            buildListTileSouthList(),
+          ],
+        ),
       ),
     );
   }
 
-  ListTile buildListTileNorthList() {
-    return ListTile(
-      leading: Image.asset('images/north.png', width: screen * .10),
-      title: MyStyle().titleH3('ภาคเหนือ'),
-      subtitle: Text('รวมสถานที่ท่องเที่ยวในภาคเหนือ'),
-      onTap: () => Navigator.pushNamed(context, '/north_list'),
+  ////////////////////////////////////////////////////////////////////////
+  Card buildListTileNorthList() {
+    return Card(
+      child: (Image.asset('images/north1.png')),
     );
   }
 
-  ListTile buildListTileIsanList() {
-    return ListTile(
-      leading: Image.asset('images/isan.png', width: screen * .10),
-      title: MyStyle().titleH3('ภาคอีสาน'),
-      subtitle: Text('รวมสถานที่ท่องเที่ยวในภาคอีสาน'),
-      onTap: () => Navigator.pushNamed(context, '/isan_list'),
+  Card buildListTileIsanList() {
+    return Card(
+      child: (Image.asset('images/isan1.png')),
     );
   }
 
-  ListTile buildListTileCentralList() {
-    return ListTile(
-      leading: Image.asset('images/central.png', width: screen * .10),
-      title: MyStyle().titleH3('ภาคกลาง'),
-      subtitle: Text('รวมสถานที่ท่องเที่ยวในภาคกลาง'),
-      onTap: () => Navigator.pushNamed(context, '/central_list'),
+  Card buildListTileCentralList() {
+    return Card(
+      child: (Image.asset('images/central1.png')),
     );
   }
 
-  ListTile buildListTileSouthList() {
-    return ListTile(
-      leading: Image.asset('images/south.png', width: screen * .10),
-      title: MyStyle().titleH3('ภาคใต้'),
-      subtitle: Text('รวมสถานที่ท่องเที่ยวในภาคใต้'),
-      onTap: () => Navigator.pushNamed(context, '/south_list'),
+  Card buildListTileSouthList() {
+    return Card(
+      child: (Image.asset('images/south1.png')),
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myapp1/utility/my_style.dart';
 
 class UploadStaus extends StatefulWidget {
   @override
@@ -10,7 +11,8 @@ class _UploadStausState extends State<UploadStaus> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Upload Status"),
+        backgroundColor: MyStyle().primaryColor,
+        title: const Text("เพิ่มสถานที่ท่องเที่ยว"),
       ),
     );
   }

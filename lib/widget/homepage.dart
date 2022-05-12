@@ -32,7 +32,7 @@ class _HomepageState extends State<Homepage> {
 
   ListTile buildListTileNorthList() {
     return ListTile(
-      leading: Image.asset('images/logo.png', width: screen * .10),
+      leading: Image.asset('images/north.png', width: screen * .10),
       title: MyStyle().titleH3('ภาคเหนือ'),
       subtitle: Text('รวมสถานที่ท่องเที่ยวในภาคเหนือ'),
       onTap: () => Navigator.pushNamed(context, '/north_list'),
@@ -41,7 +41,7 @@ class _HomepageState extends State<Homepage> {
 
   ListTile buildListTileIsanList() {
     return ListTile(
-      leading: Image.asset('images/logo.png', width: screen * .10),
+      leading: Image.asset('images/isan.png', width: screen * .10),
       title: MyStyle().titleH3('ภาคอีสาน'),
       subtitle: Text('รวมสถานที่ท่องเที่ยวในภาคอีสาน'),
       onTap: () => Navigator.pushNamed(context, '/isan_list'),
@@ -50,7 +50,7 @@ class _HomepageState extends State<Homepage> {
 
   ListTile buildListTileCentralList() {
     return ListTile(
-      leading: Image.asset('images/logo.png', width: screen * .10),
+      leading: Image.asset('images/central.png', width: screen * .10),
       title: MyStyle().titleH3('ภาคกลาง'),
       subtitle: Text('รวมสถานที่ท่องเที่ยวในภาคกลาง'),
       onTap: () => Navigator.pushNamed(context, '/central_list'),
@@ -59,7 +59,7 @@ class _HomepageState extends State<Homepage> {
 
   ListTile buildListTileSouthList() {
     return ListTile(
-      leading: Image.asset('images/logo.png', width: screen * .10),
+      leading: Image.asset('images/south.png', width: screen * .10),
       title: MyStyle().titleH3('ภาคใต้'),
       subtitle: Text('รวมสถานที่ท่องเที่ยวในภาคใต้'),
       onTap: () => Navigator.pushNamed(context, '/south_list'),

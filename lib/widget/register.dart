@@ -173,6 +173,7 @@ class _RegisterState extends State<Register> {
           .createUserWithEmailAndPassword(email: email, password: password)
           .then((value) async {
         print('Register Success');
+        // ignore: deprecated_member_use
         await value.user?.updateProfile(displayName: name).then((value) =>
             Navigator.pushNamedAndRemoveUntil(
                 context, '/myService', (route) => false));

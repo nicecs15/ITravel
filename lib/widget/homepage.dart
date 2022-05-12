@@ -22,7 +22,7 @@ class _HomepageState extends State<Homepage> {
     screen = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Container(
-        margin: EdgeInsets.only(top: 60),
+        margin: EdgeInsets.only(top: 55),
         padding: const EdgeInsets.all(9.0), //ขยับขอบ
         child: GridView.count(
           crossAxisCount: 2,
@@ -30,10 +30,10 @@ class _HomepageState extends State<Homepage> {
           crossAxisSpacing: 10,
           mainAxisSpacing: 10,
           children: [
-            buildListTileNorthList(),
-            buildListTileIsanList(),
-            buildListTileCentralList(),
-            buildListTileSouthList(),
+            buildNorthMenu(),
+            buildIsanMenu(),
+            buildCentralMenu(),
+            buildSouthMenu(),
           ],
         ),
       ),
@@ -41,27 +41,55 @@ class _HomepageState extends State<Homepage> {
   }
 
   ////////////////////////////////////////////////////////////////////////
-  Card buildListTileNorthList() {
-    return Card(
-      child: (Image.asset('images/north.png')),
+  GestureDetector buildNorthMenu() {
+    return GestureDetector(
+      onTap: () => Navigator.pushNamed(context, '/north_list'),
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: const BorderRadius.all(Radius.circular(15)),
+        ),
+        elevation: 4,
+        child: (Image.asset('images/north.png')),
+      ),
     );
   }
 
-  Card buildListTileIsanList() {
-    return Card(
-      child: (Image.asset('images/isan.png')),
+  GestureDetector buildIsanMenu() {
+    return GestureDetector(
+      onTap: () => Navigator.pushNamed(context, '/isan_list'),
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: const BorderRadius.all(Radius.circular(15)),
+        ),
+        elevation: 4,
+        child: (Image.asset('images/isan.png')),
+      ),
     );
   }
 
-  Card buildListTileCentralList() {
-    return Card(
-      child: (Image.asset('images/central.png')),
+  GestureDetector buildCentralMenu() {
+    return GestureDetector(
+      onTap: () => Navigator.pushNamed(context, '/central_list'),
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: const BorderRadius.all(Radius.circular(15)),
+        ),
+        elevation: 4,
+        child: (Image.asset('images/central.png')),
+      ),
     );
   }
 
-  Card buildListTileSouthList() {
-    return Card(
-      child: (Image.asset('images/south.png')),
+  GestureDetector buildSouthMenu() {
+    return GestureDetector(
+      onTap: () => Navigator.pushNamed(context, '/south_list'),
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: const BorderRadius.all(Radius.circular(15)),
+        ),
+        elevation: 4,
+        child: (Image.asset('images/south.png')),
+      ),
     );
   }
 }

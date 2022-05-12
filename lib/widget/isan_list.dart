@@ -29,11 +29,22 @@ class _IsanListState extends State<IsanList> {
             return ListView(
               children: snapshot.data!.docs.map((document) {
                 return Card(
+                    margin: EdgeInsets.all(6),
+                    elevation: 3,
                     child: ListTile(
-                  leading: Image.network(document["img"]),
-                  title: Text(document["name"]),
-                  subtitle: Text(document["detail"]),
-                ));
+                      leading: ConstrainedBox(
+                        constraints: BoxConstraints(
+                          minWidth: 102,
+                          minHeight: 56,
+                          maxWidth: 102,
+                          maxHeight: 56,
+                        ),
+                        child:
+                            Image.network(document["img"], fit: BoxFit.cover),
+                      ),
+                      title: Text(document["name"]),
+                      subtitle: Text(document["detail"]),
+                    ));
               }).toList(),
             );
           }),

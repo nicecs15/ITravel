@@ -104,8 +104,8 @@ class _MyServiceState extends State<MyService> {
           image: DecorationImage(
               image: AssetImage('images/wall.png'), fit: BoxFit.cover),
         ),
-        accountName: MyStyle().titleH2White(name ?? 'Name'),
-        accountEmail: MyStyle().titleH3White(email ?? 'Email'),
+        accountName: MyStyle().titleH2White(name ?? 'ไม่ระบุตัวตน'),
+        accountEmail: MyStyle().titleH3White(email ?? ''),
         currentAccountPicture: IconButton(
             icon: Image.asset('images/traveller.png'),
             onPressed: () => Navigator.pushNamed(

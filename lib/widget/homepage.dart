@@ -3,7 +3,6 @@ import 'package:myapp1/utility/my_style.dart';
 import 'package:myapp1/widget/central_list.dart';
 import 'package:myapp1/widget/isan_list.dart';
 import 'package:myapp1/widget/north_list.dart';
-import 'package:myapp1/widget/searchbar.dart';
 import 'package:myapp1/widget/south_list.dart';
 
 class Homepage extends StatefulWidget {

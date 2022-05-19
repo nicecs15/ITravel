@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:myapp1/utility/dialog.dart';
 import 'package:myapp1/utility/my_style.dart';
+import 'package:myapp1/widget/homepage.dart';
 import 'package:myapp1/widget/my_service.dart';
 
 class Authen extends StatefulWidget {
@@ -43,6 +44,7 @@ class _AuthenState extends State<Authen> {
               buildUser(),
               buildPassword(),
               buildLogin(),
+              buildGetStarted(),
             ],
           ),
         ),
@@ -73,6 +75,28 @@ class _AuthenState extends State<Authen> {
           }
         },
         child: Text('เข้าสู่ระบบ'),
+        style: ElevatedButton.styleFrom(
+          primary: MyStyle().darkColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Container buildGetStarted() {
+    return Container(
+      margin: EdgeInsets.only(top: 16),
+      width: screen * .75,
+      child: ElevatedButton(
+        onPressed: () {
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (BuildContext context) {
+            return MyService();
+          }));
+        },
+        child: Text('ใช้งานไม่ระบุตัวตน'),
         style: ElevatedButton.styleFrom(
           primary: MyStyle().darkColor,
           shape: RoundedRectangleBorder(

@@ -12,50 +12,77 @@ class NorthList extends StatefulWidget {
 }
 
 class _NorthListState extends State<NorthList> {
+  TextEditingController addController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: MyStyle().primaryColor,
         title: const Text('สถานที่ท่องเที่ยวในภาคเหนือ'),
       ),
-
-      body: StreamBuilder(
-          stream: FirebaseFirestore.instance.collection("north").snapshots(),
-          builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-            if (!snapshot.hasData) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-
-            return ListView(
-              children: snapshot.data!.docs.map((document) {
-                return Card(
-                    margin: EdgeInsets.all(6),
-                    elevation: 3,
-                    child: ListTile(
-                        leading: ConstrainedBox(
-                          constraints: BoxConstraints(
-                            minWidth: 102,
-                            minHeight: 56,
-                            maxWidth: 102,
-                            maxHeight: 56,
-                          ),
-                          child:
-                              Image.network(document["img"], fit: BoxFit.cover),
+      body: Column(
+        children: [
+          SizedBox(
+            height: size.height / 30,
+          ),
+          Container(
+              height: size.height / 14,
+              width: size.width,
+              alignment: Alignment.center,
+              child: SizedBox(
+                  height: size.height / 14,
+                  width: size.width / 1.15,
+                  child: TextField(
+                      controller: addController,
+                      decoration: InputDecoration(
+                        suffixIcon: IconButton(
+                          icon: const Icon(Icons.search),
+                          onPressed: () => {}.clear(),
                         ),
-                        title: Text(document["name"]),
-                        subtitle: Text(document["detail"]),
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (BuildContext context) {
-                            return NorthDetail();
-                          }));
-                        }));
-              }).toList(),
-            );
-          }),
+                        hintText: "ค้นหาสถานที่ท่องเที่ยว",
+                      )))),
+          Expanded(
+            child: StreamBuilder(
+                stream:
+                    FirebaseFirestore.instance.collection("north").snapshots(),
+                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (!snapshot.hasData) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  return ListView(
+                    children: snapshot.data!.docs.map((document) {
+                      return Card(
+                          margin: const EdgeInsets.all(6),
+                          elevation: 3,
+                          child: ListTile(
+                              leading: ConstrainedBox(
+                                constraints: const BoxConstraints(
+                                  minWidth: 102,
+                                  minHeight: 56,
+                                  maxWidth: 102,
+                                  maxHeight: 56,
+                                ),
+                                child: Image.network(document["img"],
+                                    fit: BoxFit.cover),
+                              ),
+                              title: Text(document["name"]),
+                              subtitle: Text(document["detail"]),
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (BuildContext context) {
+                                  return NorthDetail();
+                                }));
+                              }));
+                    }).toList(),
+                  );
+                }),
+          )
+        ],
+      ),
 
       //////////// addproto
       floatingActionButton: FloatingActionButton(

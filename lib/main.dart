@@ -5,7 +5,7 @@ import 'package:myapp1/router.dart';
 
 String initialRoute = '/authen';
 
-Future<Null> main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp().then((value) async {});

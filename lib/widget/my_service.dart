@@ -61,6 +61,7 @@ class _MyServiceState extends State<MyService> {
               buildUserAccountsDrawerHeader(),
               buildListTileHomePage(),
               buildListTileLikeList(),
+              buildListTileAddList(),
             ],
           ),
           buildSignOut(),
@@ -95,6 +96,17 @@ class _MyServiceState extends State<MyService> {
         ),
         title: MyStyle().titleH3('สถานที่ท่องเที่ยวที่ชื่นชอบ'),
         onTap: () => Navigator.pushNamed(context, '/like'));
+  }
+
+  ListTile buildListTileAddList() {
+    return ListTile(
+        leading: Icon(
+          Icons.add,
+          size: 28,
+          color: Colors.red,
+        ),
+        title: MyStyle().titleH3('add'),
+        onTap: () => Navigator.pushNamed(context, '/add'));
   }
 
 //head

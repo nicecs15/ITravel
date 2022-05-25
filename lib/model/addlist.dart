@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -7,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:myapp1/utility/dialog.dart';
 import 'package:myapp1/utility/my_style.dart';
+import 'package:myapp1/widget/my_service.dart';
+import 'package:myapp1/widget/south_list.dart';
 
 class AddList extends StatefulWidget {
   const AddList({Key? key}) : super(key: key);
@@ -17,24 +20,34 @@ class AddList extends StatefulWidget {
 
 class _AddListState extends State<AddList> {
   File? file;
-  String? name, detail;
+  String? name, province, detail, urlPicture;
   final formKey = GlobalKey<FormState>();
   /////////////////////////////
   Widget uploadButton() {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
-        children: [
+        children: <Widget>[
           Container(
             width: MediaQuery.of(context).size.width * 0.6,
             child: RaisedButton.icon(
                 color: MyStyle().primaryColor,
                 onPressed: () {
-                  if (formKey.currentState!.validate()) {
-                    if (file == null) {
-                      normalDialog(context, 'กรุณาเลือกรูปภาพ');
-                    }
-                  } else {}
+                  if (file == null) {
+                    showAlert('โปรดทำการเลือกรูปภาพสถานที่ท่องเที่ยว',
+                        'กรุณาเลือกรูปภาพ');
+                  } else if (name == null ||
+                      name!.isEmpty ||
+                      province == null ||
+                      province!.isEmpty ||
+                      detail == null ||
+                      detail!.isEmpty) {
+                    showAlert(
+                        'โปรดกรอกข้อมูลสถานที่ท่องเที่ยว', 'กรอกข้อมูลให้ครบ');
+                  } else {
+                    // upload value to firebase
+                    uploadPictureToStorage();
+                  }
                 },
                 icon: Icon(Icons.add, color: Colors.white),
                 label: Text(
@@ -47,18 +60,52 @@ class _AddListState extends State<AddList> {
     );
   }
 
-  Future<void> uploadPicture() async {}
+  Future<void> showAlert(String title, String message) async {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+              title: Text(title),
+              content: Text(message),
+              actions: <Widget>[
+                FlatButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('OK'),
+                )
+              ]);
+        });
+  }
+
+  Future<void> uploadPictureToStorage() async {
+    Random random = Random();
+    int i = random.nextInt(100000);
+
+    FirebaseStorage firebaseStorage = FirebaseStorage.instance;
+    Reference storageReference =
+        firebaseStorage.ref().child('imgsouth/imgsouth$i.jpg');
+    UploadTask storageUploadTask = storageReference.putFile(file!);
+
+    urlPicture = await (await storageUploadTask).ref.getDownloadURL();
+    print('urlPicture = $urlPicture');
+    insertValueToFireStore();
+  }
 
   Future<void> insertValueToFireStore() async {
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
 
     Map<String, dynamic> map = Map();
     map['name'] = name;
+    map['province'] = province;
     map['detail'] = detail;
-    //map['img'] =
+    map['img'] = urlPicture;
 
-    await firebaseFirestore.collection('isan').doc().set(map).then((value) {
+    await firebaseFirestore.collection('south').doc().set(map).then((value) {
       print('เย้');
+      MaterialPageRoute route =
+          MaterialPageRoute(builder: (value) => MyService());
+      Navigator.of(context).pushAndRemoveUntil(route, (value) => false);
     });
   }
 
@@ -66,16 +113,25 @@ class _AddListState extends State<AddList> {
     return Container(
         width: MediaQuery.of(context).size.width * 0.6,
         child: TextFormField(
-          validator: (value) {
-            if (value!.isEmpty) {
-              return 'กรุณากรอกชื่อสถานที่';
-            } else {}
-          },
           onChanged: (String string) {
             name = string.trim();
           },
           decoration: InputDecoration(
             labelText: 'ชื่อสถานที่',
+            icon: Icon(Icons.map),
+          ),
+        ));
+  }
+
+  Widget provinceForm() {
+    return Container(
+        width: MediaQuery.of(context).size.width * 0.6,
+        child: TextFormField(
+          onChanged: (String value) {
+            province = value.trim();
+          },
+          decoration: InputDecoration(
+            labelText: 'จังหวัดสถานที่',
             icon: Icon(Icons.place),
           ),
         ));
@@ -85,13 +141,8 @@ class _AddListState extends State<AddList> {
     return Container(
         width: MediaQuery.of(context).size.width * 0.6,
         child: TextFormField(
-          validator: (value) {
-            if (value!.isEmpty) {
-              return 'กรุณากรอกลายละเอียด';
-            } else {}
-          },
-          onChanged: (String string) {
-            detail = string.trim();
+          onChanged: (String value) {
+            detail = value.trim();
           },
           decoration: InputDecoration(
             labelText: 'รายละเอียด',
@@ -108,6 +159,7 @@ class _AddListState extends State<AddList> {
         icon: Icon(
           Icons.add_a_photo,
           size: 36.0,
+          color: Colors.green,
         ));
   }
 
@@ -130,6 +182,7 @@ class _AddListState extends State<AddList> {
         icon: Icon(
           Icons.add_photo_alternate,
           size: 36.0,
+          color: Colors.red,
         ));
   }
 
@@ -160,6 +213,7 @@ class _AddListState extends State<AddList> {
             showImage(),
             showButton(),
             nameForm(),
+            provinceForm(),
             detailForm(),
           ],
         ),
@@ -172,7 +226,7 @@ class _AddListState extends State<AddList> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: MyStyle().primaryColor,
-        title: Text('add'),
+        title: Text('เพิ่มสถานที่ท่องเที่ยว'),
       ),
       body: Container(
         child: Stack(

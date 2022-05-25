@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myapp1/widget/addlist.dart';
+import 'package:myapp1/model/addlist.dart';
 import 'package:myapp1/widget/authen.dart';
 import 'package:myapp1/widget/central_list.dart';
 import 'package:myapp1/widget/isan_list.dart';

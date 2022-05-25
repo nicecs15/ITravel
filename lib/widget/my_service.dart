@@ -61,7 +61,6 @@ class _MyServiceState extends State<MyService> {
               buildUserAccountsDrawerHeader(),
               buildListTileHomePage(),
               buildListTileLikeList(),
-              buildListTileAddList(),
             ],
           ),
           buildSignOut(),

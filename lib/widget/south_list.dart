@@ -1,8 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:myapp1/model/addlist.dart';
 import 'package:myapp1/utility/my_style.dart';
-
-import '../model/upload_status.dart';
 
 class SouthList extends StatefulWidget {
   const SouthList({Key? key}) : super(key: key);
@@ -12,6 +11,13 @@ class SouthList extends StatefulWidget {
 }
 
 class _SouthListState extends State<SouthList> {
+  /* void iniState() {
+    super.initState();
+    readAllData();
+  }
+
+  Future<void> readAllData() async {}*/
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,10 +47,10 @@ class _SouthListState extends State<SouthList> {
                           maxHeight: 56,
                         ),
                         child:
-                            Image.network(document["img"], fit: BoxFit.cover),
+                            Image.network(document['img'], fit: BoxFit.cover),
                       ),
-                      title: Text(document["name"]),
-                      subtitle: Text(document["detail"]),
+                      title: Text(document['name']),
+                      subtitle: Text(document['province']),
                     ));
               }).toList(),
             );
@@ -53,8 +59,7 @@ class _SouthListState extends State<SouthList> {
       //////////// addproto
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (_) => UploadStaus()));
+          Navigator.push(context, MaterialPageRoute(builder: (_) => AddList()));
         },
         child: const Icon(
           Icons.edit,

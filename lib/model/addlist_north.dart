@@ -11,14 +11,14 @@ import 'package:myapp1/utility/my_style.dart';
 import 'package:myapp1/widget/my_service.dart';
 import 'package:myapp1/widget/south_list.dart';
 
-class AddList extends StatefulWidget {
-  const AddList({Key? key}) : super(key: key);
+class AddListNorth extends StatefulWidget {
+  const AddListNorth({Key? key}) : super(key: key);
 
   @override
-  State<AddList> createState() => _AddListState();
+  State<AddListNorth> createState() => _AddListNorthState();
 }
 
-class _AddListState extends State<AddList> {
+class _AddListNorthState extends State<AddListNorth> {
   File? file;
   String? name, province, detail, urlPicture;
   final formKey = GlobalKey<FormState>();
@@ -84,7 +84,7 @@ class _AddListState extends State<AddList> {
 
     FirebaseStorage firebaseStorage = FirebaseStorage.instance;
     Reference storageReference =
-        firebaseStorage.ref().child('imgsouth/imgsouth$i.jpg');
+        firebaseStorage.ref().child('imgnorth/imgnorth$i.jpg');
     UploadTask storageUploadTask = storageReference.putFile(file!);
 
     urlPicture = await (await storageUploadTask).ref.getDownloadURL();
@@ -101,7 +101,7 @@ class _AddListState extends State<AddList> {
     map['detail'] = detail;
     map['img'] = urlPicture;
 
-    await firebaseFirestore.collection('south').doc().set(map).then((value) {
+    await firebaseFirestore.collection('north').doc().set(map).then((value) {
       print('เย้');
       MaterialPageRoute route =
           MaterialPageRoute(builder: (value) => MyService());

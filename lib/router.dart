@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:myapp1/model/addlist.dart';
+import 'package:myapp1/model/addlist_central.dart';
+import 'package:myapp1/model/addlist_isan.dart';
+import 'package:myapp1/model/addlist_north.dart';
+import 'package:myapp1/model/addlist_south.dart';
 import 'package:myapp1/widget/authen.dart';
 import 'package:myapp1/widget/central_list.dart';
 import 'package:myapp1/widget/isan_list.dart';
@@ -20,5 +23,8 @@ final Map<String, WidgetBuilder> routes = {
   '/south_list': (BuildContext context) => SouthList(),
   '/profile': (BuildContext context) => Profile(),
   '/like': (BuildContext context) => LikeList(),
-  '/add': (BuildContext context) => AddList(),
+  '/add_north': (BuildContext context) => AddListNorth(),
+  '/add_isan': (BuildContext context) => AddListIsan(),
+  '/add_central': (BuildContext context) => AddListCentral(),
+  '/add_south': (BuildContext context) => AddListSouth(),
 };

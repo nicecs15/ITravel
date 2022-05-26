@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:myapp1/model/addlist_isan.dart';
 import 'package:myapp1/model/upload_status.dart';
 import 'package:myapp1/utility/my_style.dart';
 
@@ -53,7 +54,7 @@ class _IsanListState extends State<IsanList> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
-              context, MaterialPageRoute(builder: (_) => UploadStaus()));
+              context, MaterialPageRoute(builder: (_) => AddListIsan()));
         },
         child: const Icon(
           Icons.edit,

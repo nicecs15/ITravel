@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:myapp1/model/addlist_central.dart';
 import 'package:myapp1/utility/my_style.dart';
 
 import '../model/upload_status.dart';
@@ -54,7 +55,7 @@ class _CentralListState extends State<CentralList> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
-              context, MaterialPageRoute(builder: (_) => UploadStaus()));
+              context, MaterialPageRoute(builder: (_) => AddListCentral()));
         },
         child: const Icon(
           Icons.edit,

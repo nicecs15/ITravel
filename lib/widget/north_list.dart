@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:myapp1/model/addlist_north.dart';
 import 'package:myapp1/model/upload_status.dart';
 import 'package:myapp1/utility/my_style.dart';
 import 'package:myapp1/widget/detail.dart';
@@ -88,7 +89,7 @@ class _NorthListState extends State<NorthList> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
-              context, MaterialPageRoute(builder: (_) => UploadStaus()));
+              context, MaterialPageRoute(builder: (_) => AddListNorth()));
         },
         child: const Icon(
           Icons.edit,

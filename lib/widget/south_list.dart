@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:myapp1/model/addlist.dart';
+import 'package:myapp1/model/addlist_south.dart';
 import 'package:myapp1/utility/my_style.dart';
+import 'package:myapp1/widget/southdetail.dart';
 
 class SouthList extends StatefulWidget {
   const SouthList({Key? key}) : super(key: key);
@@ -11,12 +12,14 @@ class SouthList extends StatefulWidget {
 }
 
 class _SouthListState extends State<SouthList> {
-  /* void iniState() {
-    super.initState();
-    readAllData();
+  navigateToDetail(DocumentSnapshot south) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => SouthDetail(
+                  south: south,
+                )));
   }
-
-  Future<void> readAllData() async {}*/
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +54,7 @@ class _SouthListState extends State<SouthList> {
                       ),
                       title: Text(document['name']),
                       subtitle: Text(document['province']),
+                      onTap: () => navigateToDetail,
                     ));
               }).toList(),
             );
@@ -59,7 +63,8 @@ class _SouthListState extends State<SouthList> {
       //////////// addproto
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (_) => AddList()));
+          Navigator.push(
+              context, MaterialPageRoute(builder: (_) => AddListSouth()));
         },
         child: const Icon(
           Icons.edit,

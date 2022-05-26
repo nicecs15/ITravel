@@ -107,9 +107,7 @@ class _AddListSouthState extends State<AddListSouth> {
 
     await firebaseFirestore.collection('south').doc().set(map).then((value) {
       print('เย้');
-      MaterialPageRoute route =
-          MaterialPageRoute(builder: (value) => MyService());
-      Navigator.of(context).pushAndRemoveUntil(route, (value) => false);
+      Navigator.pop(context, '/south_list');
     });
   }
 

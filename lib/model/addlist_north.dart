@@ -103,9 +103,7 @@ class _AddListNorthState extends State<AddListNorth> {
 
     await firebaseFirestore.collection('north').doc().set(map).then((value) {
       print('เย้');
-      MaterialPageRoute route =
-          MaterialPageRoute(builder: (value) => MyService());
-      Navigator.of(context).pushAndRemoveUntil(route, (value) => false);
+      Navigator.pop(context, '/north_list');
     });
   }
 

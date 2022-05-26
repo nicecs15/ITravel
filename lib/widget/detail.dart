@@ -1,8 +1,22 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:myapp1/utility/my_style.dart';
 
-class NorthDetail extends StatelessWidget {
-  const NorthDetail({Key? key}) : super(key: key);
+class NorthDetail extends StatefulWidget {
+  final DocumentSnapshot north;
+
+  NorthDetail({required this.north});
+
+  @override
+  State<NorthDetail> createState() => _NorthDetailState();
+}
+
+class _NorthDetailState extends State<NorthDetail> {
+  Future getnorth() async {
+    var firestore = FirebaseFirestore.instance;
+    QuerySnapshot qn = await firestore.collection("north").get();
+    return qn.docs;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +32,8 @@ class NorthDetail extends StatelessWidget {
           children: [
             Stack(
               children: [
-                Image.asset(
-                  'images/wall.png',
+                Image.network(
+                  widget.north.get('img'),
                   height: 400.0,
                   width: size.width,
                   fit: BoxFit.cover,
@@ -37,8 +51,8 @@ class NorthDetail extends StatelessWidget {
                     children: [
                       Container(
                         width: size.width / 2,
-                        child: const Text(
-                          "ม่อนแจ่ม",
+                        child: Text(
+                          widget.north.get("name"),
                           style: TextStyle(
                             fontSize: 24.0,
                           ),
@@ -85,9 +99,9 @@ class NorthDetail extends StatelessWidget {
                         color: Colors.green,
                       ),
                       const SizedBox(width: 20),
-                      const Expanded(
+                      Expanded(
                           child: Text(
-                        "เชียงใหม่",
+                        widget.north.get("province"),
                         style: TextStyle(
                           fontSize: 15.0,
                         ),
@@ -99,8 +113,8 @@ class NorthDetail extends StatelessWidget {
                     color: Colors.black.withOpacity(0.8),
                     height: 32.0,
                   ),
-                  const Text(
-                    "ม่อนแจ่ม เป็นสถานที่เที่ยวยอดนิยมของเชียงใหม่ เที่ยวได้ตลอดทั้งปี ตั้งอยู่ในอำเภอแม่ริม ห่างจากตัวเมืองประมาณ 40 นาที  ม่อนแจ่มเป็นส่วนหนึ่งของศูนย์พัฒนาโครงการหลวงหนองหอย ตั้งอยู่บริเวณหมู่บ้านม้ง หนองหอย อำเภอแม่ริม บนยอดม่อนแจ่มมีพื้นที่ไม่กว้างมาก สามารถเดินชมได้ทั่วถึง  ที่ตั้งของ “ม่อนแจ่ม” อยู่บนสันเขาบริเวณหมู่บ้านม้งหนองหอย เดิมบริเวณนี้ชาวบ้าน เรียกว่ากิ่วเสือเป็นป่ารกร้าง ต่อมาชาวบ้านเข้ามาแผ้วถางและปลูกผิ่น จนในท้ายที่สุดโครงการหลวงมาขอซื้อพื้นที่เข้าโครงการหลวงหนองหอย เมื่อเข้าเป็นส่วนหนึ่งของโครงการหลวง คุณแจ่ม-แจ่มจรัส สุชีวะ หลานของ ม.จ. ภีศเดช รัชนี ประธานมูลนิธิโครงการหลวงได้เข้ามาพัฒนาและปรับปรุงบริเวณม่อนแจ่มให้กลายเป็นสถานที่ท่องเที่ยว โดยเฉพาะในลักษณะ ของแค้มปิ้งรีสอร์ท",
+                  Text(
+                    widget.north.get("detail"),
                     style: TextStyle(
                       fontSize: 15.0,
                     ),

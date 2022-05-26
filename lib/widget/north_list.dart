@@ -15,6 +15,11 @@ class NorthList extends StatefulWidget {
 class _NorthListState extends State<NorthList> {
   TextEditingController addController = TextEditingController();
 
+  navigateToDetail(DocumentSnapshot north) {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => NorthDetail(north: north)));
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -71,11 +76,13 @@ class _NorthListState extends State<NorthList> {
                                     fit: BoxFit.cover),
                               ),
                               title: Text(document["name"]),
-                              subtitle: Text(document["detail"]),
+                              subtitle: Text(document["province"]),
                               onTap: () {
                                 Navigator.of(context).push(MaterialPageRoute(
                                     builder: (BuildContext context) {
-                                  return NorthDetail();
+                                  return NorthDetail(
+                                    north: document,
+                                  );
                                 }));
                               }));
                     }).toList(),

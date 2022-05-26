@@ -103,9 +103,7 @@ class _AddListIsanState extends State<AddListIsan> {
 
     await firebaseFirestore.collection('isan').doc().set(map).then((value) {
       print('เย้');
-      MaterialPageRoute route =
-          MaterialPageRoute(builder: (value) => MyService());
-      Navigator.of(context).pushAndRemoveUntil(route, (value) => false);
+      Navigator.pop(context, '/isan_list');
     });
   }
 

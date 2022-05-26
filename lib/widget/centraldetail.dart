@@ -1,21 +1,20 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:myapp1/model/south_model.dart';
 import 'package:myapp1/utility/my_style.dart';
 
-class SouthDetail extends StatefulWidget {
-  final DocumentSnapshot south;
+class CentralDetail extends StatefulWidget {
+  final DocumentSnapshot central;
 
-  SouthDetail({required this.south});
+  CentralDetail({required this.central});
 
   @override
-  State<SouthDetail> createState() => _SouthDetailState();
+  State<CentralDetail> createState() => _CentralDetailState();
 }
 
-class _SouthDetailState extends State<SouthDetail> {
+class _CentralDetailState extends State<CentralDetail> {
   Future getsouth() async {
     var firestore = FirebaseFirestore.instance;
-    QuerySnapshot qn = await firestore.collection("south").get();
+    QuerySnapshot qn = await firestore.collection("central").get();
     return qn.docs;
   }
 
@@ -25,7 +24,7 @@ class _SouthDetailState extends State<SouthDetail> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: MyStyle().primaryColor,
-        title: Text('สถานที่ท่องเที่ยวภาคใต้'),
+        title: Text('สถานที่ท่องเที่ยวภาคกลาง'),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -34,7 +33,7 @@ class _SouthDetailState extends State<SouthDetail> {
             Stack(
               children: [
                 Image.network(
-                  widget.south.get('img'),
+                  widget.central.get('img'),
                   height: 400.0,
                   width: size.width,
                   fit: BoxFit.cover,
@@ -53,7 +52,7 @@ class _SouthDetailState extends State<SouthDetail> {
                       Container(
                         width: size.width / 2,
                         child: Text(
-                          widget.south.get("name"),
+                          widget.central.get("name"),
                           style: TextStyle(
                             fontSize: 24.0,
                           ),
@@ -102,7 +101,7 @@ class _SouthDetailState extends State<SouthDetail> {
                       const SizedBox(width: 20),
                       Expanded(
                           child: Text(
-                        widget.south.get("province"),
+                        widget.central.get("province"),
                         style: TextStyle(
                           fontSize: 15.0,
                         ),
@@ -115,7 +114,7 @@ class _SouthDetailState extends State<SouthDetail> {
                     height: 32.0,
                   ),
                   Text(
-                    widget.south.get("detail"),
+                    widget.central.get("detail"),
                     style: TextStyle(
                       fontSize: 15.0,
                     ),

@@ -103,9 +103,7 @@ class _AddListCentralState extends State<AddListCentral> {
 
     await firebaseFirestore.collection('central').doc().set(map).then((value) {
       print('เย้');
-      MaterialPageRoute route =
-          MaterialPageRoute(builder: (value) => MyService());
-      Navigator.of(context).pushAndRemoveUntil(route, (value) => false);
+      Navigator.pop(context, '/central_list');
     });
   }
 

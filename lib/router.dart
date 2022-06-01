@@ -5,6 +5,7 @@ import 'package:myapp1/model/addlist_north.dart';
 import 'package:myapp1/model/addlist_south.dart';
 import 'package:myapp1/widget/authen.dart';
 import 'package:myapp1/widget/central_list.dart';
+import 'package:myapp1/widget/detail.dart';
 import 'package:myapp1/widget/isan_list.dart';
 import 'package:myapp1/widget/like_list.dart';
 import 'package:myapp1/widget/my_service.dart';
@@ -12,6 +13,7 @@ import 'package:myapp1/widget/north_list.dart';
 import 'package:myapp1/widget/profile.dart';
 import 'package:myapp1/widget/register.dart';
 import 'package:myapp1/widget/south_list.dart';
+import 'package:myapp1/widget/southdetail.dart';
 
 final Map<String, WidgetBuilder> routes = {
   '/authen': (BuildContext context) => Authen(),

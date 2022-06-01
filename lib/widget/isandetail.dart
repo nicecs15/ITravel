@@ -1,11 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:myapp1/utility/my_style.dart';
 
 class IsanDetail extends StatefulWidget {
-  final DocumentSnapshot isan;
+  var isan;
 
-  IsanDetail({required this.isan});
+  IsanDetail({this.isan});
   @override
   State<IsanDetail> createState() => _IsanDetailState();
 }
@@ -15,6 +16,23 @@ class _IsanDetailState extends State<IsanDetail> {
     var firestore = FirebaseFirestore.instance;
     QuerySnapshot qn = await firestore.collection("isan").get();
     return qn.docs;
+  }
+
+  Future addToFavorite() async {
+    final FirebaseAuth _auth = FirebaseAuth.instance;
+    var currentUser = _auth.currentUser;
+    CollectionReference _collectionRef =
+        FirebaseFirestore.instance.collection("users_favorite_items");
+    return _collectionRef
+        .doc(currentUser!.email)
+        .collection("items")
+        .doc()
+        .set({
+      "name": widget.isan["name"],
+      "img": widget.isan["img"],
+      "province": widget.isan["province"],
+      "detail": widget.isan["detail"],
+    }).then((value) => print("add to favortie"));
   }
 
   @override
@@ -57,31 +75,40 @@ class _IsanDetailState extends State<IsanDetail> {
                           ),
                         ),
                       ),
-                      Container(
-                          height: 34.0,
-                          width: 94.0,
-                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                          decoration: BoxDecoration(
-                            color: Colors.black.withOpacity(0.3),
-                            borderRadius: BorderRadius.circular(50.0),
-                          ),
-                          child: Row(
-                            children: [
-                              const Icon(
-                                Icons.favorite,
-                                size: 18,
-                                color: Colors.red,
+                      StreamBuilder(
+                          stream: FirebaseFirestore.instance
+                              .collection("users_favorite_items")
+                              .doc(FirebaseAuth.instance.currentUser!.email)
+                              .collection("items")
+                              .where("name", isEqualTo: widget.isan['name'])
+                              .snapshots(),
+                          builder:
+                              (BuildContext context, AsyncSnapshot snapshot) {
+                            if (snapshot.data == null) {
+                              return Text("");
+                            }
+                            return Padding(
+                              padding: const EdgeInsets.only(right: 8),
+                              child: CircleAvatar(
+                                backgroundColor: Colors.red,
+                                child: IconButton(
+                                    onPressed: () =>
+                                        snapshot.data.docs.length == 0
+                                            ? addToFavorite()
+                                            : print("Alread added"),
+                                    icon: snapshot.data.docs.length == 0
+                                        ? Icon(
+                                            Icons.favorite_outline,
+                                            size: 18,
+                                            color: Colors.white,
+                                          )
+                                        : Icon(
+                                            Icons.favorite,
+                                            color: Colors.white,
+                                          )),
                               ),
-                              const SizedBox(width: 6.0),
-                              Text(
-                                "Favorite",
-                                style: TextStyle(
-                                  fontSize: 13.0,
-                                  color: Colors.white.withOpacity(0.75),
-                                ),
-                              )
-                            ],
-                          ))
+                            );
+                          }),
                     ],
                   ),
                   Divider(
@@ -144,7 +171,7 @@ class _IsanDetailState extends State<IsanDetail> {
                           child: const TextField(
                             decoration: InputDecoration(
                               border: InputBorder.none,
-                              hintText: "Write a comment ....",
+                              hintText: "Write a comment ....อีสาน",
                               hintStyle: const TextStyle(
                                 fontSize: 15.0,
                               ),

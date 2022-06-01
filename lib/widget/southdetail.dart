@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:myapp1/model/south_model.dart';
 import 'package:myapp1/utility/my_style.dart';
@@ -17,6 +18,23 @@ class _SouthDetailState extends State<SouthDetail> {
     var firestore = FirebaseFirestore.instance;
     QuerySnapshot qn = await firestore.collection("south").get();
     return qn.docs;
+  }
+
+  Future addToFavorite() async {
+    final FirebaseAuth _auth = FirebaseAuth.instance;
+    var currentUser = _auth.currentUser;
+    CollectionReference _collectionRef =
+        FirebaseFirestore.instance.collection("users_favorite_items");
+    return _collectionRef
+        .doc(currentUser!.email)
+        .collection("items")
+        .doc()
+        .set({
+      "name": widget.south["name"],
+      "img": widget.south["img"],
+      "province": widget.south["province"],
+      "detail": widget.south["detail"],
+    }).then((value) => print("add to favortie"));
   }
 
   @override
@@ -59,31 +77,40 @@ class _SouthDetailState extends State<SouthDetail> {
                           ),
                         ),
                       ),
-                      Container(
-                          height: 34.0,
-                          width: 94.0,
-                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                          decoration: BoxDecoration(
-                            color: Colors.black.withOpacity(0.3),
-                            borderRadius: BorderRadius.circular(50.0),
-                          ),
-                          child: Row(
-                            children: [
-                              const Icon(
-                                Icons.favorite,
-                                size: 18,
-                                color: Colors.red,
+                      StreamBuilder(
+                          stream: FirebaseFirestore.instance
+                              .collection("users_favorite_items")
+                              .doc(FirebaseAuth.instance.currentUser!.email)
+                              .collection("items")
+                              .where("name", isEqualTo: widget.south['name'])
+                              .snapshots(),
+                          builder:
+                              (BuildContext context, AsyncSnapshot snapshot) {
+                            if (snapshot.data == null) {
+                              return Text("");
+                            }
+                            return Padding(
+                              padding: const EdgeInsets.only(right: 8),
+                              child: CircleAvatar(
+                                backgroundColor: Colors.red,
+                                child: IconButton(
+                                    onPressed: () =>
+                                        snapshot.data.docs.length == 0
+                                            ? addToFavorite()
+                                            : print("Alread added"),
+                                    icon: snapshot.data.docs.length == 0
+                                        ? Icon(
+                                            Icons.favorite_outline,
+                                            size: 18,
+                                            color: Colors.white,
+                                          )
+                                        : Icon(
+                                            Icons.favorite,
+                                            color: Colors.white,
+                                          )),
                               ),
-                              const SizedBox(width: 6.0),
-                              Text(
-                                "Favorite",
-                                style: TextStyle(
-                                  fontSize: 13.0,
-                                  color: Colors.white.withOpacity(0.75),
-                                ),
-                              )
-                            ],
-                          ))
+                            );
+                          }),
                     ],
                   ),
                   Divider(
@@ -146,7 +173,7 @@ class _SouthDetailState extends State<SouthDetail> {
                           child: const TextField(
                             decoration: InputDecoration(
                               border: InputBorder.none,
-                              hintText: "Write a comment ....",
+                              hintText: "Write a comment ..ใต้..",
                               hintStyle: const TextStyle(
                                 fontSize: 15.0,
                               ),

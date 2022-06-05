@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:myapp1/model/addlist_north.dart';
-import 'package:myapp1/model/upload_status.dart';
 import 'package:myapp1/utility/my_style.dart';
 import 'package:myapp1/widget/detail.dart';
 
@@ -13,8 +12,7 @@ class NorthList extends StatefulWidget {
 }
 
 class _NorthListState extends State<NorthList> {
-  TextEditingController addController = TextEditingController();
-
+  var inputText = "";
   navigateToDetail(DocumentSnapshot north) {
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => NorthDetail(north: north)));
@@ -34,29 +32,46 @@ class _NorthListState extends State<NorthList> {
             height: size.height / 30,
           ),
           Container(
+            height: size.height / 14,
+            width: size.width,
+            alignment: Alignment.center,
+            child: SizedBox(
               height: size.height / 14,
-              width: size.width,
-              alignment: Alignment.center,
-              child: SizedBox(
-                  height: size.height / 14,
-                  width: size.width / 1.15,
-                  child: TextField(
-                      controller: addController,
-                      decoration: InputDecoration(
-                        suffixIcon: IconButton(
-                          icon: const Icon(Icons.search),
-                          onPressed: () => {}.clear(),
-                        ),
-                        hintText: "ค้นหาสถานที่ท่องเที่ยว",
-                      )))),
+              width: size.width / 1.15,
+              child: TextField(
+                  decoration: InputDecoration(
+                      hintText: "ค้นหาสถานที่ท่องเที่ยว",
+                      hintStyle: TextStyle(
+                        color: Colors.black.withAlpha(120),
+                      ),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                          borderSide: BorderSide(color: Colors.black)),
+                      prefixIcon: Icon(Icons.search),
+                      prefixIconColor: Colors.purple.shade800),
+                  onChanged: ((val) {
+                    setState(() {
+                      inputText = val;
+                      print(inputText);
+                    });
+                  })),
+            ),
+          ),
           Expanded(
             child: StreamBuilder(
-                stream:
-                    FirebaseFirestore.instance.collection("north").snapshots(),
+                stream: FirebaseFirestore.instance
+                    .collection("north")
+                    .where("name", isGreaterThanOrEqualTo: inputText)
+                    .snapshots(),
                 builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                   if (!snapshot.hasData) {
                     return const Center(
                       child: CircularProgressIndicator(),
+                    );
+                  }
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(
+                      child: Text("Loading"),
                     );
                   }
                   return ListView(

@@ -167,6 +167,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.6"
+  flutter_rating_bar:
+    dependency: transitive
+    description:
+      name: flutter_rating_bar
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.0.1"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -296,6 +303,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "6.0.3"
+  rating_dialog:
+    dependency: "direct main"
+    description:
+      name: rating_dialog
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.4"
+  simple_star_rating:
+    dependency: "direct main"
+    description:
+      name: simple_star_rating
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.3"
   sky_engine:
     dependency: transitive
     description: flutter

@@ -1,7 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:myapp1/model/addreview_north.dart';
+import 'package:myapp1/utility/StickyLabel.dart';
 import 'package:myapp1/utility/my_style.dart';
+import 'package:myapp1/widget/northreview.dart';
+import 'package:myapp1/widget/reviewUI.dart';
 
 class NorthDetail extends StatefulWidget {
   final DocumentSnapshot north;
@@ -36,6 +40,7 @@ class _NorthDetailState extends State<NorthDetail> {
     }).then((value) => print("add to favortie"));
   }
 
+  bool isMore = false;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -143,57 +148,82 @@ class _NorthDetailState extends State<NorthDetail> {
                     fontSize: 15.0,
                   ),
                 ),
-                Container(
-                  height: 64.0,
-                  width: size.width,
-                  margin: const EdgeInsets.only(top: 16.0),
-                  padding: EdgeInsets.symmetric(horizontal: 16.0),
-                  decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 208, 212, 214),
-                    borderRadius: BorderRadius.circular(12.0),
-                  ),
-                  child: Row(
-                    children: [
-                      Container(
-                        height: 32.0,
-                        width: 32.0,
-                        padding: const EdgeInsets.all(8.0),
-                        margin: const EdgeInsets.only(right: 16.0),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(32.0),
-                        ),
-                        child: Image.asset("images/write.png"),
-                      ),
-                      const Expanded(
-                        child: const TextField(
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                            hintText: "Write a comment ..555..",
-                            hintStyle: const TextStyle(
-                              fontSize: 15.0,
-                            ),
-                          ),
+                Divider(
+                  thickness: 1.0,
+                  color: Colors.black.withOpacity(0.8),
+                  height: 32.0,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(("รีวิว"), style: TextStyle(fontSize: 18)),
+                    GestureDetector(
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => NorthReview(),
                         ),
                       ),
-                      Container(
-                        height: 32.0,
-                        width: 32.0,
-                        padding: EdgeInsets.all(9.0),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(32.0),
-                        ),
-                        child: Image.asset("images/sendcom.png"),
+                      child: Padding(
+                        padding: const EdgeInsets.only(),
+                        child: Text("View All",
+                            style: TextStyle(fontSize: 18, color: Colors.red)),
                       ),
-                    ],
+                    ),
+                  ],
+                ),
+                SingleChildScrollView(
+                  child: ListView.separated(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    padding: EdgeInsets.only(bottom: 8, top: 8),
+                    itemCount: 2,
+                    itemBuilder: (contex, index) {
+                      return ReviewUI(
+                        image: 'images/logo.png',
+                        name: "Username",
+                        date: "07 Jun 2022",
+                        comment:
+                            "CommentCommentCommentCommentCommentCommentCommentCommentCommentCommentCommentCommentComment",
+                        rating: 4.5,
+                        onTap: () => setState(() {
+                          isMore = !isMore;
+                        }),
+                        isLess: isMore,
+                      );
+                    },
+                    separatorBuilder: (context, index) {
+                      return Divider(
+                        thickness: 1.0,
+                        color: Colors.grey,
+                      );
+                    },
                   ),
                 ),
               ],
+            ),
+          ),
+          Center(
+            child: ElevatedButton.icon(
+              onPressed: () {
+                openRatingDialog(context);
+              },
+              icon: Icon(
+                Icons.star,
+                size: 18,
+                color: Colors.white,
+              ),
+              label: Text('เขียนรีวิว'),
             ),
           )
         ]),
       ),
     );
   }
+}
+
+openRatingDialog(BuildContext context) {
+  showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (context) => ReviewNorth());
 }

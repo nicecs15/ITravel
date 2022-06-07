@@ -24,15 +24,17 @@ class _RegisterState extends State<Register> {
         backgroundColor: MyStyle().primaryColor,
         title: Text('สร้างบัญชีผู้ใช้'),
       ),
-      body: Center(
-        child: Column(
-          children: [
-            buildLogo(),
-            buildName(),
-            buildEmail(),
-            buildPassword(),
-            buildRegister(),
-          ],
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            children: [
+              buildLogo(),
+              buildName(),
+              buildEmail(),
+              buildPassword(),
+              buildRegister(),
+            ],
+          ),
         ),
       ),
     );

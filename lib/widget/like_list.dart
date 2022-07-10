@@ -5,8 +5,6 @@ import 'package:myapp1/router.dart';
 import 'package:myapp1/utility/my_style.dart';
 import 'package:myapp1/widget/centraldetail.dart';
 import 'package:myapp1/widget/detail.dart';
-import 'package:myapp1/widget/isandetail.dart';
-import 'package:myapp1/widget/southdetail.dart';
 
 class LikeList extends StatefulWidget {
   @override
@@ -78,7 +76,13 @@ class _LikeListState extends State<LikeList> {
                                           .doc(_documentSnapshot.id)
                                           .delete();
                                     }),
-                                onTap: () {}));
+                                onTap: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (BuildContext context) {
+                                    return NorthDetail(
+                                        north: _documentSnapshot);
+                                  }));
+                                }));
                       });
                 })));
   }

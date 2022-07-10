@@ -34,25 +34,41 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: MyStyle().primaryColor,
-          title: const Text('โปรไฟล์'),
-        ),
-        body: Center(
-          child: Container(
-            width: 250,
-            height: 250,
-            child: ListTile(
-              leading: Icon(
-                Icons.account_box_outlined,
-                size: 62,
-                color: MyStyle().darkColor,
-              ),
-              title: MyStyle()
-                  .titleH2(displayName == null ? 'User ' : displayName!),
-              subtitle: Text(email == null ? 'user email ' : email!),
+      appBar: AppBar(
+        backgroundColor: MyStyle().primaryColor,
+        title: const Text('โปรไฟล์'),
+      ),
+      body: Container(
+        width: double.infinity,
+        margin: EdgeInsets.fromLTRB(10.0, 40.0, 10.0, 0.0),
+        child: Column(
+          //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Icon(Icons.account_circle, size: 150.0),
+            SizedBox(height: 20.0),
+            Text('User Info',
+                style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold)),
+            Divider(),
+            ListTile(
+              leading: Text('Name', style: TextStyle(fontSize: 15.0)),
+              trailing: Text(displayName == null ? 'user' : displayName!,
+                  style: TextStyle(fontSize: 15.0)),
+              contentPadding:
+                  EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
             ),
-          ),
-        ));
+            Divider(),
+            ListTile(
+              leading: Text('Email', style: TextStyle(fontSize: 15.0)),
+              trailing: Text(email == null ? 'email' : email!,
+                  style: TextStyle(fontSize: 15.0)),
+              contentPadding:
+                  EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
+            ),
+            Divider(),
+          ],
+        ),
+      ),
+    );
   }
 }

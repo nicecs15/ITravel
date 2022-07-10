@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:myapp1/model/addreview_north.dart';
-import 'package:myapp1/utility/StickyLabel.dart';
 import 'package:myapp1/utility/my_style.dart';
 import 'package:myapp1/widget/northreview.dart';
 import 'package:myapp1/widget/reviewUI.dart';

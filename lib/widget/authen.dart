@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:myapp1/anonymous.dart/serviceany.dart';
 import 'package:myapp1/utility/dialog.dart';
 import 'package:myapp1/utility/my_style.dart';
 import 'package:myapp1/widget/homepage.dart';
@@ -16,7 +17,7 @@ class Authen extends StatefulWidget {
 class _AuthenState extends State<Authen> {
   late double screen;
   bool statusRedEye = true;
-  String? email, password;
+  String? email, name, password;
 
   get currentUserReference => null;
 
@@ -27,7 +28,6 @@ class _AuthenState extends State<Authen> {
     screen = MediaQuery.of(context).size.width;
     print('screen = $screen');
     return Scaffold(
-      floatingActionButton: buildRegister(),
       body: Container(
         decoration: BoxDecoration(
           gradient: RadialGradient(
@@ -36,16 +36,19 @@ class _AuthenState extends State<Authen> {
               colors: <Color>[Colors.white, MyStyle().primaryColor]),
         ),
         child: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              buildLogo(),
-              MyStyle().titleH1('ITravel'),
-              buildUser(),
-              buildPassword(),
-              buildLogin(),
-              buildGetStarted(),
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                buildLogo(),
+                MyStyle().titleH1('ITravel'),
+                buildUser(),
+                buildPassword(),
+                buildLogin(),
+                buildGetStarted(),
+                buildRegister(),
+              ],
+            ),
           ),
         ),
       ),
@@ -93,7 +96,7 @@ class _AuthenState extends State<Authen> {
         onPressed: () {
           Navigator.of(context)
               .push(MaterialPageRoute(builder: (BuildContext context) {
-            return MyService();
+            return MyServiceAny();
           }));
         },
         child: Text('ใช้งานไม่ระบุตัวตน'),

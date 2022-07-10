@@ -42,6 +42,7 @@ dependencies:
   provider: ^6.0.3
   rating_dialog: ^2.0.4
   simple_star_rating: ^0.0.3
+  rflutter_alert: ^2.0.4
 
 dev_dependencies:
   flutter_test:

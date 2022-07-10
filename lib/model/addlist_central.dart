@@ -29,31 +29,34 @@ class _AddListCentralState extends State<AddListCentral> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
           Container(
-            width: MediaQuery.of(context).size.width * 0.6,
             child: RaisedButton.icon(
-                color: MyStyle().primaryColor,
-                onPressed: () {
-                  if (file == null) {
-                    showAlert('โปรดทำการเลือกรูปภาพสถานที่ท่องเที่ยว',
-                        'กรุณาเลือกรูปภาพ');
-                  } else if (name == null ||
-                      name!.isEmpty ||
-                      province == null ||
-                      province!.isEmpty ||
-                      detail == null ||
-                      detail!.isEmpty) {
-                    showAlert(
-                        'โปรดกรอกข้อมูลสถานที่ท่องเที่ยว', 'กรอกข้อมูลให้ครบ');
-                  } else {
-                    // upload value to firebase
-                    uploadPictureToStorage();
-                  }
-                },
-                icon: Icon(Icons.add, color: Colors.white),
-                label: Text(
-                  'เพิ่มข้อมูลสถานที่',
-                  style: TextStyle(color: Colors.white),
-                )),
+              color: MyStyle().primaryColor,
+              onPressed: () {
+                if (file == null) {
+                  showAlert('โปรดทำการเลือกรูปภาพสถานที่ท่องเที่ยว',
+                      'กรุณาเลือกรูปภาพ');
+                } else if (name == null ||
+                    name!.isEmpty ||
+                    province == null ||
+                    province!.isEmpty ||
+                    detail == null ||
+                    detail!.isEmpty) {
+                  showAlert(
+                      'โปรดกรอกข้อมูลสถานที่ท่องเที่ยว', 'กรอกข้อมูลให้ครบ');
+                } else {
+                  // upload value to firebase
+                  uploadPictureToStorage();
+                }
+              },
+              icon: Icon(Icons.add, color: Colors.white),
+              label: Text(
+                'เพิ่มข้อมูลสถานที่',
+                style: TextStyle(color: Colors.white),
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15),
+              ),
+            ),
           ),
         ],
       ),
@@ -226,8 +229,8 @@ class _AddListCentralState extends State<AddListCentral> {
         backgroundColor: MyStyle().primaryColor,
         title: Text('เพิ่มสถานที่ท่องเที่ยว'),
       ),
-      body: Container(
-        child: Stack(
+      body: SingleChildScrollView(
+        child: Wrap(
           children: [
             showContent(),
             uploadButton(),

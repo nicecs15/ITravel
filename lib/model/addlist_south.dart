@@ -29,7 +29,6 @@ class _AddListSouthState extends State<AddListSouth> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
           Container(
-            width: MediaQuery.of(context).size.width * 0.6,
             child: RaisedButton.icon(
               color: MyStyle().primaryColor,
               onPressed: () {
@@ -230,8 +229,8 @@ class _AddListSouthState extends State<AddListSouth> {
         backgroundColor: MyStyle().primaryColor,
         title: Text('เพิ่มสถานที่ท่องเที่ยว'),
       ),
-      body: Container(
-        child: Stack(
+      body: SingleChildScrollView(
+        child: Wrap(
           children: [
             showContent(),
             uploadButton(),

@@ -1,8 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:myapp1/utility/my_style.dart';
 import 'package:myapp1/widget/central_list.dart';
 import 'package:myapp1/widget/isan_list.dart';
 import 'package:myapp1/widget/north_list.dart';
+import 'package:myapp1/widget/searchall.dart';
 import 'package:myapp1/widget/south_list.dart';
 
 class Homepage extends StatefulWidget {
@@ -20,23 +22,28 @@ class _HomepageState extends State<Homepage> {
   Widget build(BuildContext context) {
     screen = MediaQuery.of(context).size.width;
     return Scaffold(
-      body: Container(
-        margin: EdgeInsets.only(top: 55),
-        padding: const EdgeInsets.all(9.0), //ขยับขอบ
-        child: GridView.count(
-          crossAxisCount: 2,
-          childAspectRatio: .85,
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 10,
-          children: [
-            buildNorthMenu(),
-            buildIsanMenu(),
-            buildCentralMenu(),
-            buildSouthMenu(),
-          ],
-        ),
-      ),
-    );
+        body: SafeArea(
+            child: Container(
+                margin: EdgeInsets.only(top: 30),
+                child: Column(children: [
+                  buildSearch(),
+                  Expanded(
+                      child: Container(
+                    padding: const EdgeInsets.all(9.0), //ขยับขอบ
+                    child: GridView.count(
+                      crossAxisCount: 2,
+                      childAspectRatio: .85,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10,
+                      children: [
+                        buildNorthMenu(),
+                        buildIsanMenu(),
+                        buildCentralMenu(),
+                        buildSouthMenu(),
+                      ],
+                    ),
+                  ))
+                ]))));
   }
 
   ////////////////////////////////////////////////////////////////////////
@@ -90,5 +97,28 @@ class _HomepageState extends State<Homepage> {
         child: (Image.asset('images/south.png')),
       ),
     );
+  }
+
+  GestureDetector buildSearch() {
+    final size = MediaQuery.of(context).size;
+    return GestureDetector(
+        child: SizedBox(
+            height: size.height / 15,
+            width: size.width / 1.15,
+            child: TextFormField(
+              readOnly: true,
+              decoration: InputDecoration(
+                  hintText: "ค้นหาสถานที่ท่องเที่ยว",
+                  hintStyle: TextStyle(
+                    color: Colors.black.withAlpha(120),
+                  ),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide: BorderSide(color: Colors.black)),
+                  prefixIcon: Icon(Icons.search),
+                  prefixIconColor: Colors.purple.shade800),
+              onTap: () => Navigator.push(
+                  context, CupertinoPageRoute(builder: (_) => SearchScreen())),
+            )));
   }
 }

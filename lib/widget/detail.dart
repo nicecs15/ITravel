@@ -5,6 +5,7 @@ import 'package:myapp1/model/addreview_north.dart';
 import 'package:myapp1/utility/my_style.dart';
 import 'package:myapp1/widget/northreview.dart';
 import 'package:myapp1/widget/reviewUI.dart';
+import 'package:myapp1/model/addreview_north.dart';
 
 class NorthDetail extends StatefulWidget {
   final DocumentSnapshot north;
@@ -204,7 +205,7 @@ class _NorthDetailState extends State<NorthDetail> {
           Center(
             child: ElevatedButton.icon(
               onPressed: () {
-                openRatingDialog(context);
+                openRatingDialog(context, widget.north);
               },
               icon: Icon(
                 Icons.star,
@@ -220,9 +221,11 @@ class _NorthDetailState extends State<NorthDetail> {
   }
 }
 
-openRatingDialog(BuildContext context) {
+openRatingDialog(context, north) {
   showDialog(
       context: context,
       barrierDismissible: true,
-      builder: (context) => ReviewNorth());
+      builder: (context) => ReviewNorth(
+            north: north,
+          ));
 }

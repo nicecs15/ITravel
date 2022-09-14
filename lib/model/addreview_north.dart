@@ -6,6 +6,9 @@ import 'package:provider/provider.dart';
 import 'package:rating_dialog/rating_dialog.dart';
 
 class ReviewNorth extends StatefulWidget {
+  final DocumentSnapshot north;
+  ReviewNorth({required this.north});
+
   @override
   State<ReviewNorth> createState() => _ReviewNorthState();
 }
@@ -13,14 +16,13 @@ class ReviewNorth extends StatefulWidget {
 class _ReviewNorthState extends State<ReviewNorth> {
   final Future<FirebaseApp> firebase = Firebase.initializeApp();
   var now = DateTime.now();
-  String? comment;
-  double? rating;
 
-  Future<void> addToReview() async {
+  Future<void> addToReview(name) async {
     final FirebaseAuth _auth = FirebaseAuth.instance;
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
     var currentUser = _auth.currentUser;
-
+    String? comment;
+    double? rating;
     Map<String, dynamic> map = Map();
     map['comment'] = comment;
     map['datecomment'] = DateTime.now();
@@ -28,7 +30,7 @@ class _ReviewNorthState extends State<ReviewNorth> {
 
     await firebaseFirestore
         .collection('north')
-        .doc()
+        .doc(name)
         .collection("reviewnorth")
         .doc(currentUser!.email)
         .set(map)
@@ -68,12 +70,8 @@ class _ReviewNorthState extends State<ReviewNorth> {
             print('rating: ${response.rating}, comment: ${response.comment}');
             print('Day ${now.day} Month ${now.month} Year ${now.year}');
             // TODO: add your own logic
-            if (response.rating < 3.0) {
-              // send their comments to your email or anywhere you wish
-              // ask the user to contact you instead of leaving a bad review
-            } else {
-              addToReview();
-            }
+
+            addToReview(widget.north['name']);
           }),
     );
   }

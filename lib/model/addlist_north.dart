@@ -12,7 +12,14 @@ import 'package:myapp1/widget/my_service.dart';
 import 'package:myapp1/widget/south_list.dart';
 
 class AddListNorth extends StatefulWidget {
-  const AddListNorth({Key? key}) : super(key: key);
+  final String? name;
+  final String? province;
+  final String? detail;
+  final String? urlPicture;
+
+  const AddListNorth(
+      {Key? key, this.name, this.detail, this.province, this.urlPicture})
+      : super(key: key);
 
   @override
   State<AddListNorth> createState() => _AddListNorthState();
@@ -92,10 +99,10 @@ class _AddListNorthState extends State<AddListNorth> {
 
     urlPicture = await (await storageUploadTask).ref.getDownloadURL();
     print('urlPicture = $urlPicture');
-    insertValueToFireStore();
+    insertValueToFireStore(name);
   }
 
-  Future<void> insertValueToFireStore() async {
+  Future<void> insertValueToFireStore(name) async {
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
 
     Map<String, dynamic> map = Map();
@@ -104,8 +111,12 @@ class _AddListNorthState extends State<AddListNorth> {
     map['detail'] = detail;
     map['img'] = urlPicture;
 
-    await firebaseFirestore.collection('north').doc().set(map).then((value) {
-      print('เย้');
+    await firebaseFirestore
+        .collection('north')
+        .doc(name)
+        .set(map)
+        .then((value) {
+      print("addlistnorth");
       Navigator.pop(context, '/north_list');
     });
   }

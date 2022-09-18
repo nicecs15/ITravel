@@ -1,13 +1,16 @@
 class ReviewNorthModel {
-  String? reviewid;
-  String? reviewname;
-  String? reviewcomment;
+  //field
+  String? id;
+  String? name;
+  String? comment;
   double? rating;
+  var now = DateTime.now();
+  //method
+  ReviewNorthModel(this.id, this.name, this.comment, this.rating, this.now);
 
-  ReviewNorthModel({
-    this.reviewid,
-    this.reviewname,
-    this.reviewcomment,
-    this.rating,
-  });
+  ReviewNorthModel.fromMap(Map<String, dynamic> map) {
+    comment = map['comment'];
+    rating = map['rating'];
+    now = map['rating'];
+  }
 }

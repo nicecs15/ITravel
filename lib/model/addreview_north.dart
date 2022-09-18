@@ -7,7 +7,8 @@ import 'package:rating_dialog/rating_dialog.dart';
 
 class ReviewNorth extends StatefulWidget {
   final DocumentSnapshot north;
-  ReviewNorth({required this.north});
+  final String? comment;
+  ReviewNorth({required this.north, this.comment});
 
   @override
   State<ReviewNorth> createState() => _ReviewNorthState();
@@ -16,17 +17,18 @@ class ReviewNorth extends StatefulWidget {
 class _ReviewNorthState extends State<ReviewNorth> {
   final Future<FirebaseApp> firebase = Firebase.initializeApp();
   var now = DateTime.now();
-
+  String? comment;
+  var rating;
+  final formKey = GlobalKey<FormState>();
   Future<void> addToReview(name) async {
     final FirebaseAuth _auth = FirebaseAuth.instance;
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
     var currentUser = _auth.currentUser;
-    String? comment;
-    double? rating;
+
     Map<String, dynamic> map = Map();
     map['comment'] = comment;
     map['datecomment'] = DateTime.now();
-    map['ratingcomment'] = rating;
+    map['rating'] = rating;
 
     await firebaseFirestore
         .collection('north')
@@ -41,38 +43,33 @@ class _ReviewNorthState extends State<ReviewNorth> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: RatingDialog(
-          title: Text(
-            'เขียนรีวิวสถานที่',
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 25,
-              fontWeight: FontWeight.bold,
-            ),
+    return RatingDialog(
+        title: Text(
+          'เขียนรีวิวสถานที่',
+          textAlign: TextAlign.center,
+          style: const TextStyle(
+            fontSize: 25,
+            fontWeight: FontWeight.bold,
           ),
-          // encourage your user to leave a high rating?
-          message: Text(
-            'ให้คะแนนสถานที่ท่องเที่ยว',
-            textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 15),
-          ),
-          // your app's logo?
-          image: (Image.asset(
-            'images/logo.png',
-            width: 60,
-            height: 90,
-          )),
-          submitButtonText: 'รีวิว',
-          commentHint: 'comment',
-          onCancelled: () => print('cancelled'),
-          onSubmitted: (response) {
-            print('rating: ${response.rating}, comment: ${response.comment}');
-            print('Day ${now.day} Month ${now.month} Year ${now.year}');
-            // TODO: add your own logic
-
-            addToReview(widget.north['name']);
-          }),
-    );
+        ),
+        // encourage your user to leave a high rating?
+        message: Text(
+          'ให้คะแนนสถานที่ท่องเที่ยว',
+          textAlign: TextAlign.center,
+          style: const TextStyle(fontSize: 15),
+        ),
+        // your app's logo?
+        image: (Image.asset(
+          'images/logo.png',
+          width: 60,
+          height: 90,
+        )),
+        submitButtonText: 'รีวิว',
+        onCancelled: () => print('cancelled'),
+        onSubmitted: (response) {
+          comment = response.comment;
+          rating = response.rating;
+          addToReview(widget.north['name']);
+        });
   }
 }

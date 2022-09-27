@@ -31,7 +31,7 @@ class _ReviewCentralState extends State<ReviewCentral> {
     map['comment'] = comment;
     map['datecomment'] = DateTime.now();
     map['rating'] = rating;
-    map['emailcomment'] = currentUser!.email;
+    map['emailcomment'] = currentUser!.displayName;
 
     await firebaseFirestore
         .collection('central')

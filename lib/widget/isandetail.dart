@@ -1,12 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:myapp1/model/addreview_isan.dart';
 import 'package:myapp1/utility/my_style.dart';
+import 'package:myapp1/widget/IsanReview.dart';
+import 'package:myapp1/widget/IsanReviewUI.dart';
 
 class IsanDetail extends StatefulWidget {
-  var isan;
+  final DocumentSnapshot isan;
 
-  IsanDetail({this.isan});
+  IsanDetail({required this.isan});
   @override
   State<IsanDetail> createState() => _IsanDetailState();
 }
@@ -38,165 +41,189 @@ class _IsanDetailState extends State<IsanDetail> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    bool isMore = false;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: MyStyle().primaryColor,
         title: Text('สถานที่ท่องเที่ยวภาคอีสาน'),
       ),
       body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Stack(
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Stack(
+            children: [
+              Image.network(
+                widget.isan.get('img'),
+                height: 400.0,
+                width: size.width,
+                fit: BoxFit.cover,
+              ),
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 24),
+            child: Column(
               children: [
-                Image.network(
-                  widget.isan.get('img'),
-                  height: 400.0,
-                  width: size.width,
-                  fit: BoxFit.cover,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Container(
+                      width: size.width / 2,
+                      child: Text(
+                        widget.isan.get("name"),
+                        style: TextStyle(
+                          fontSize: 24.0,
+                        ),
+                      ),
+                    ),
+                    StreamBuilder(
+                        stream: FirebaseFirestore.instance
+                            .collection("users_favorite_items")
+                            .doc(FirebaseAuth.instance.currentUser!.email)
+                            .collection("items")
+                            .where("name", isEqualTo: widget.isan['name'])
+                            .snapshots(),
+                        builder:
+                            (BuildContext context, AsyncSnapshot snapshot) {
+                          if (snapshot.data == null) {
+                            return Text("");
+                          }
+                          return Padding(
+                            padding: const EdgeInsets.only(right: 8),
+                            child: CircleAvatar(
+                              backgroundColor: Colors.red,
+                              child: IconButton(
+                                  onPressed: () =>
+                                      snapshot.data.docs.length == 0
+                                          ? addToFavorite()
+                                          : print("Alread added"),
+                                  icon: snapshot.data.docs.length == 0
+                                      ? Icon(
+                                          Icons.favorite_outline,
+                                          size: 18,
+                                          color: Colors.white,
+                                        )
+                                      : Icon(
+                                          Icons.favorite,
+                                          color: Colors.white,
+                                        )),
+                            ),
+                          );
+                        }),
+                  ],
+                ),
+                Divider(
+                  thickness: 1.0,
+                  color: Colors.black.withOpacity(0.8),
+                  height: 32.0,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Icon(
+                      Icons.share,
+                      size: 24,
+                      color: Colors.green,
+                    ),
+                    const SizedBox(width: 20),
+                    Expanded(
+                        child: Text(
+                      widget.isan.get("province"),
+                      style: TextStyle(
+                        fontSize: 15.0,
+                      ),
+                    )),
+                  ],
+                ),
+                Divider(
+                  thickness: 1.0,
+                  color: Colors.black.withOpacity(0.8),
+                  height: 32.0,
+                ),
+                Text(
+                  widget.isan.get("detail"),
+                  style: TextStyle(
+                    fontSize: 15.0,
+                  ),
+                ),
+                Divider(
+                  thickness: 1.0,
+                  color: Colors.black.withOpacity(0.8),
+                  height: 32.0,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(("รีวิว"), style: TextStyle(fontSize: 18)),
+                    GestureDetector(
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => IsanReview(isan: widget.isan),
+                        ),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(),
+                        child: Text("View All",
+                            style: TextStyle(fontSize: 18, color: Colors.red)),
+                      ),
+                    ),
+                  ],
+                ),
+                SingleChildScrollView(
+                  child: ListView.separated(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    padding: EdgeInsets.only(bottom: 8, top: 8),
+                    itemCount: 1,
+                    itemBuilder: (context, index) {
+                      return IsanReviewUI(
+                        image: 'images/logo.png',
+                        emailcomment: "Username",
+                        datecomment: DateTime.now(),
+                        comment: "Comment",
+                        rating: 0,
+                        onTap: () => setState(() {
+                          isMore = !isMore;
+                        }),
+                        isLess: isMore,
+                        isan: widget.isan,
+                      );
+                    },
+                    separatorBuilder: (context, index) {
+                      return Divider(
+                        thickness: 1.0,
+                        color: Colors.grey,
+                      );
+                    },
+                  ),
                 ),
               ],
             ),
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 16.0, horizontal: 24),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Container(
-                        width: size.width / 2,
-                        child: Text(
-                          widget.isan.get("name"),
-                          style: TextStyle(
-                            fontSize: 24.0,
-                          ),
-                        ),
-                      ),
-                      StreamBuilder(
-                          stream: FirebaseFirestore.instance
-                              .collection("users_favorite_items")
-                              .doc(FirebaseAuth.instance.currentUser!.email)
-                              .collection("items")
-                              .where("name", isEqualTo: widget.isan['name'])
-                              .snapshots(),
-                          builder:
-                              (BuildContext context, AsyncSnapshot snapshot) {
-                            if (snapshot.data == null) {
-                              return Text("");
-                            }
-                            return Padding(
-                              padding: const EdgeInsets.only(right: 8),
-                              child: CircleAvatar(
-                                backgroundColor: Colors.red,
-                                child: IconButton(
-                                    onPressed: () =>
-                                        snapshot.data.docs.length == 0
-                                            ? addToFavorite()
-                                            : print("Alread added"),
-                                    icon: snapshot.data.docs.length == 0
-                                        ? Icon(
-                                            Icons.favorite_outline,
-                                            size: 18,
-                                            color: Colors.white,
-                                          )
-                                        : Icon(
-                                            Icons.favorite,
-                                            color: Colors.white,
-                                          )),
-                              ),
-                            );
-                          }),
-                    ],
-                  ),
-                  Divider(
-                    thickness: 1.0,
-                    color: Colors.black.withOpacity(0.8),
-                    height: 32.0,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Icon(
-                        Icons.share,
-                        size: 24,
-                        color: Colors.green,
-                      ),
-                      const SizedBox(width: 20),
-                      Expanded(
-                          child: Text(
-                        widget.isan.get("province"),
-                        style: TextStyle(
-                          fontSize: 15.0,
-                        ),
-                      )),
-                    ],
-                  ),
-                  Divider(
-                    thickness: 1.0,
-                    color: Colors.black.withOpacity(0.8),
-                    height: 32.0,
-                  ),
-                  Text(
-                    widget.isan.get("detail"),
-                    style: TextStyle(
-                      fontSize: 15.0,
-                    ),
-                  ),
-                  Container(
-                    height: 64.0,
-                    width: size.width,
-                    margin: const EdgeInsets.only(top: 16.0),
-                    padding: EdgeInsets.symmetric(horizontal: 16.0),
-                    decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 208, 212, 214),
-                      borderRadius: BorderRadius.circular(12.0),
-                    ),
-                    child: Row(
-                      children: [
-                        Container(
-                          height: 32.0,
-                          width: 32.0,
-                          padding: const EdgeInsets.all(8.0),
-                          margin: const EdgeInsets.only(right: 16.0),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(32.0),
-                          ),
-                          child: Image.asset("images/write.png"),
-                        ),
-                        const Expanded(
-                          child: const TextField(
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: "Write a comment ....อีสาน",
-                              hintStyle: const TextStyle(
-                                fontSize: 15.0,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          height: 32.0,
-                          width: 32.0,
-                          padding: EdgeInsets.all(9.0),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(32.0),
-                          ),
-                          child: Image.asset("images/sendcom.png"),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+          ),
+          Center(
+            child: ElevatedButton.icon(
+              onPressed: () {
+                openRatingDialog(context, widget.isan);
+              },
+              icon: Icon(
+                Icons.star,
+                size: 20,
+                color: Colors.white,
               ),
-            )
-          ],
-        ),
+              label: Text('เขียนรีวิว'),
+            ),
+          )
+        ]),
       ),
     );
   }
+}
+
+openRatingDialog(context, isan) {
+  showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (context) => ReviewIsan(
+            isan: isan,
+          ));
 }

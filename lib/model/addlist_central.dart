@@ -92,10 +92,10 @@ class _AddListCentralState extends State<AddListCentral> {
 
     urlPicture = await (await storageUploadTask).ref.getDownloadURL();
     print('urlPicture = $urlPicture');
-    insertValueToFireStore();
+    insertValueToFireStore(name);
   }
 
-  Future<void> insertValueToFireStore() async {
+  Future<void> insertValueToFireStore(name) async {
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
 
     Map<String, dynamic> map = Map();
@@ -104,7 +104,11 @@ class _AddListCentralState extends State<AddListCentral> {
     map['detail'] = detail;
     map['img'] = urlPicture;
 
-    await firebaseFirestore.collection('central').doc().set(map).then((value) {
+    await firebaseFirestore
+        .collection('central')
+        .doc(name)
+        .set(map)
+        .then((value) {
       print('เย้');
       Navigator.pop(context, '/central_list');
     });

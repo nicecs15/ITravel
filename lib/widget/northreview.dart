@@ -1,9 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:myapp1/utility/my_style.dart';
 import 'package:myapp1/widget/reviewUI.dart';
 
 class NorthReview extends StatefulWidget {
-  NorthReview({Key? key}) : super(key: key);
+  final DocumentSnapshot north;
+  NorthReview({Key? key, required this.north}) : super(key: key);
 
   @override
   State<NorthReview> createState() => _NorthReviewState();
@@ -19,29 +21,37 @@ class _NorthReviewState extends State<NorthReview> {
         backgroundColor: MyStyle().primaryColor,
         title: const Text('รีวิว'),
       ),
-      body: ListView.separated(
-        shrinkWrap: true,
-        itemCount: 4,
-        itemBuilder: (contex, index) {
-          return ReviewUI(
-            image: 'images/logo.png',
-            name: "Username",
-            date: "07 Jun 2022",
-            comment:
-                "CommentCommentCommentCommentCommentCommentCommentCommentCommentCommentCommentCommentComment",
-            rating: 4.5,
-            onTap: () => setState(() {
-              isMore = !isMore;
-            }),
-            isLess: isMore,
-          );
-        },
-        separatorBuilder: (context, index) {
-          return Divider(
-            thickness: 1,
-            color: Colors.grey,
-          );
-        },
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: SingleChildScrollView(
+          child: ListView.separated(
+            physics: NeverScrollableScrollPhysics(),
+            padding: EdgeInsets.only(bottom: 8, top: 8),
+            shrinkWrap: true,
+            itemCount: 1,
+            itemBuilder: (contex, index) {
+              return ReviewUI(
+                image: 'images/logo.png',
+                emailcomment: "Username",
+                datecomment: DateTime(1),
+                comment:
+                    "CommentCommentCommentCommentCommentCommentCommentCommentCommentCommentCommentCommentComment",
+                rating: 4.5,
+                onTap: () => setState(() {
+                  isMore = !isMore;
+                }),
+                isLess: isMore,
+                north: widget.north,
+              );
+            },
+            separatorBuilder: (context, index) {
+              return Divider(
+                thickness: 1,
+                color: Colors.grey,
+              );
+            },
+          ),
+        ),
       ),
     );
   }

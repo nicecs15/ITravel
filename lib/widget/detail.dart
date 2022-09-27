@@ -160,7 +160,8 @@ class _NorthDetailState extends State<NorthDetail> {
                     GestureDetector(
                       onTap: () => Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => NorthReview(),
+                          builder: (context) =>
+                              NorthReview(north: widget.north),
                         ),
                       ),
                       child: Padding(
@@ -176,19 +177,19 @@ class _NorthDetailState extends State<NorthDetail> {
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
                     padding: EdgeInsets.only(bottom: 8, top: 8),
-                    itemCount: 2,
-                    itemBuilder: (contex, index) {
+                    itemCount: 1,
+                    itemBuilder: (context, index) {
                       return ReviewUI(
                         image: 'images/logo.png',
-                        name: "Username",
-                        date: "07 Jun 2022",
-                        comment:
-                            "CommentCommentCommentCommentCommentCommentCommentCommentCommentCommentCommentCommentComment",
-                        rating: 4.5,
+                        emailcomment: "Username",
+                        datecomment: DateTime.now(),
+                        comment: "Comment",
+                        rating: 0,
                         onTap: () => setState(() {
                           isMore = !isMore;
                         }),
                         isLess: isMore,
+                        north: widget.north,
                       );
                     },
                     separatorBuilder: (context, index) {
@@ -209,7 +210,7 @@ class _NorthDetailState extends State<NorthDetail> {
               },
               icon: Icon(
                 Icons.star,
-                size: 18,
+                size: 20,
                 color: Colors.white,
               ),
               label: Text('เขียนรีวิว'),

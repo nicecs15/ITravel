@@ -8,7 +8,8 @@ import 'package:rating_dialog/rating_dialog.dart';
 class ReviewNorth extends StatefulWidget {
   final DocumentSnapshot north;
   final String? comment;
-  ReviewNorth({required this.north, this.comment});
+  final DateTime? datecomment;
+  ReviewNorth({required this.north, this.comment, this.datecomment});
 
   @override
   State<ReviewNorth> createState() => _ReviewNorthState();
@@ -16,10 +17,12 @@ class ReviewNorth extends StatefulWidget {
 
 class _ReviewNorthState extends State<ReviewNorth> {
   final Future<FirebaseApp> firebase = Firebase.initializeApp();
-  var now = DateTime.now();
+  var datecomment = DateTime;
   String? comment;
-  var rating;
+  String? emailcomment;
+  double? rating;
   final formKey = GlobalKey<FormState>();
+
   Future<void> addToReview(name) async {
     final FirebaseAuth _auth = FirebaseAuth.instance;
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
@@ -29,12 +32,13 @@ class _ReviewNorthState extends State<ReviewNorth> {
     map['comment'] = comment;
     map['datecomment'] = DateTime.now();
     map['rating'] = rating;
+    map['emailcomment'] = currentUser!.email;
 
     await firebaseFirestore
         .collection('north')
         .doc(name)
         .collection("reviewnorth")
-        .doc(currentUser!.email)
+        .doc()
         .set(map)
         .then((value) {
       print('addreview');

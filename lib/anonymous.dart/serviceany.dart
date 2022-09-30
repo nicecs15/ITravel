@@ -5,6 +5,8 @@ import 'package:myapp1/anonymous.dart/favorliteany.dart';
 import 'package:myapp1/utility/my_style.dart';
 import 'package:myapp1/widget/homepage.dart';
 
+import '../FAV/FavHomepage.dart';
+
 class MyServiceAny extends StatefulWidget {
   const MyServiceAny({Key? key}) : super(key: key);
 
@@ -15,7 +17,7 @@ class MyServiceAny extends StatefulWidget {
 class _MyServiceAnyState extends State<MyServiceAny> {
   String? name, email;
 
-  Widget currentWidget = Homepage();
+  Widget currentWidget = FavHomepage();
 
   @override
   void initState() {
@@ -74,7 +76,7 @@ class _MyServiceAnyState extends State<MyServiceAny> {
       title: MyStyle().titleH3('หน้าหลัก'),
       onTap: () {
         setState(() {
-          currentWidget = Homepage();
+          currentWidget = FavHomepage();
         });
         Navigator.pop(context);
       },

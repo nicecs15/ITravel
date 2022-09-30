@@ -44,6 +44,7 @@ dependencies:
   simple_star_rating: ^0.0.3
   rflutter_alert: ^2.0.4
   intl: ^0.17.0
+  profanity_filter: ^2.0.0
 
 dev_dependencies:
   flutter_test:

@@ -2,20 +2,19 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:myapp1/model/firestorebuckets.dart';
-import 'package:profanity_filter/profanity_filter.dart';
 import 'package:simple_star_rating/simple_star_rating.dart';
 
 import '../model/firestorefield.dart';
 
-class ReviewUI extends StatelessWidget {
+class FavReviewUI extends StatelessWidget {
   final String? image, emailcomment, comment;
   final double? rating;
   final bool? isLess;
   final DateTime? datecomment;
-  final DocumentSnapshot north;
-  ReviewUI({
+  final DocumentSnapshot fav;
+  FavReviewUI({
     Key? key,
-    required this.north,
+    required this.fav,
     this.image,
     this.emailcomment,
     this.comment,
@@ -30,15 +29,12 @@ class ReviewUI extends StatelessWidget {
     final Size size = MediaQuery.of(context).size;
     ScrollController controller = ScrollController();
 
-    List<String> badString1 = ['เหี้ย', 'มึง', 'กู', 'ไอสัตว์'];
-    String badString = 'เหี้ย';
-
     return Container(
       child: StreamBuilder(
           stream: FirebaseFirestore.instance
-              .collection(FirestoreBuckets.north)
-              .doc(north['name'])
-              .collection(FirestoreBuckets.reviewnorth)
+              .collection("users_favorite_items")
+              .doc(fav['name'])
+              .collection("item")
               .where("datecomment", isLessThanOrEqualTo: DateTime.now())
               .orderBy("datecomment")
               .snapshots(),
@@ -122,7 +118,7 @@ class ReviewUI extends StatelessWidget {
                               GestureDetector(
                                 child: isLess!
                                     ? Text(
-                                        comment.replaceAll(badString, '***'),
+                                        comment,
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                             fontSize: 18,
@@ -130,7 +126,7 @@ class ReviewUI extends StatelessWidget {
                                                 Color.fromARGB(255, 0, 0, 0)),
                                       )
                                     : Text(
-                                        comment.replaceAll(badString, '***'),
+                                        comment,
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                             fontSize: 18,

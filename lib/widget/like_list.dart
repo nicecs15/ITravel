@@ -5,6 +5,7 @@ import 'package:myapp1/router.dart';
 import 'package:myapp1/utility/my_style.dart';
 import 'package:myapp1/widget/centraldetail.dart';
 import 'package:myapp1/widget/detail.dart';
+import 'package:myapp1/widget/detailfav.dart';
 
 class LikeList extends StatefulWidget {
   @override
@@ -79,8 +80,7 @@ class _LikeListState extends State<LikeList> {
                                 onTap: () {
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (BuildContext context) {
-                                    return NorthDetail(
-                                        north: _documentSnapshot);
+                                    return FavDetail(fav: _documentSnapshot);
                                   }));
                                 }));
                       });

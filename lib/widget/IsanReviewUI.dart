@@ -10,6 +10,7 @@ class IsanReviewUI extends StatelessWidget {
   final bool? isLess;
   final DateTime? datecomment;
   final DocumentSnapshot isan;
+
   IsanReviewUI({
     Key? key,
     required this.isan,
@@ -26,7 +27,7 @@ class IsanReviewUI extends StatelessWidget {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     ScrollController controller = ScrollController();
-
+    String badString = "เหี้ย";
     return Container(
       child: StreamBuilder(
           stream: FirebaseFirestore.instance
@@ -116,7 +117,8 @@ class IsanReviewUI extends StatelessWidget {
                               GestureDetector(
                                 child: isLess!
                                     ? Text(
-                                        comment,
+                                        comment.replaceAll(
+                                            badString, '********'),
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                             fontSize: 18,
@@ -124,7 +126,8 @@ class IsanReviewUI extends StatelessWidget {
                                                 Color.fromARGB(255, 0, 0, 0)),
                                       )
                                     : Text(
-                                        comment,
+                                        comment.replaceAll(
+                                            badString, '********'),
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                             fontSize: 18,

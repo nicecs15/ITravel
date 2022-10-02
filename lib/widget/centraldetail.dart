@@ -56,7 +56,7 @@ class _CentralDetailState extends State<CentralDetail> {
             children: [
               Image.network(
                 widget.central.get('img'),
-                height: 400.0,
+                height: 300.0,
                 width: size.width,
                 fit: BoxFit.cover,
               ),
@@ -74,9 +74,7 @@ class _CentralDetailState extends State<CentralDetail> {
                       width: size.width / 2,
                       child: Text(
                         widget.central.get("name"),
-                        style: TextStyle(
-                          fontSize: 24.0,
-                        ),
+                        style: Theme.of(context).textTheme.headlineSmall,
                       ),
                     ),
                     StreamBuilder(
@@ -115,20 +113,17 @@ class _CentralDetailState extends State<CentralDetail> {
                         }),
                   ],
                 ),
-                Divider(
-                  thickness: 1.0,
-                  color: Colors.black.withOpacity(0.8),
-                  height: 32.0,
+                SizedBox(
+                  height: 20,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Icon(
-                      Icons.share,
+                      Icons.location_pin,
                       size: 24,
-                      color: Colors.green,
+                      color: Colors.red,
                     ),
-                    const SizedBox(width: 20),
                     Expanded(
                         child: Text(
                       widget.central.get("province"),
@@ -138,10 +133,8 @@ class _CentralDetailState extends State<CentralDetail> {
                     )),
                   ],
                 ),
-                Divider(
-                  thickness: 1.0,
-                  color: Colors.black.withOpacity(0.8),
-                  height: 32.0,
+                SizedBox(
+                  height: 20,
                 ),
                 Text(
                   widget.central.get("detail"),
@@ -149,10 +142,21 @@ class _CentralDetailState extends State<CentralDetail> {
                     fontSize: 15.0,
                   ),
                 ),
-                Divider(
-                  thickness: 1.0,
-                  color: Colors.black.withOpacity(0.8),
-                  height: 32.0,
+                SizedBox(
+                  height: 10,
+                ),
+                Center(
+                  child: ElevatedButton.icon(
+                    onPressed: () {
+                      openRatingDialog(context, widget.central);
+                    },
+                    icon: Icon(
+                      Icons.star,
+                      size: 20,
+                      color: Colors.white,
+                    ),
+                    label: Text('Review'),
+                  ),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -204,19 +208,6 @@ class _CentralDetailState extends State<CentralDetail> {
               ],
             ),
           ),
-          Center(
-            child: ElevatedButton.icon(
-              onPressed: () {
-                openRatingDialog(context, widget.central);
-              },
-              icon: Icon(
-                Icons.star,
-                size: 20,
-                color: Colors.white,
-              ),
-              label: Text('เขียนรีวิว'),
-            ),
-          )
         ]),
       ),
     );

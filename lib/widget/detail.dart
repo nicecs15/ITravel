@@ -55,7 +55,7 @@ class _NorthDetailState extends State<NorthDetail> {
             children: [
               Image.network(
                 widget.north.get('img'),
-                height: 400.0,
+                height: 350.0,
                 width: size.width,
                 fit: BoxFit.cover,
               ),
@@ -73,9 +73,7 @@ class _NorthDetailState extends State<NorthDetail> {
                       width: size.width / 2,
                       child: Text(
                         widget.north.get("name"),
-                        style: TextStyle(
-                          fontSize: 24.0,
-                        ),
+                        style: Theme.of(context).textTheme.headlineSmall,
                       ),
                     ),
                     StreamBuilder(
@@ -114,33 +112,28 @@ class _NorthDetailState extends State<NorthDetail> {
                         }),
                   ],
                 ),
-                Divider(
-                  thickness: 1.0,
-                  color: Colors.black.withOpacity(0.8),
-                  height: 32.0,
+                SizedBox(
+                  height: 20,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Icon(
-                      Icons.share,
+                      Icons.location_pin,
                       size: 24,
-                      color: Colors.green,
+                      color: Colors.red,
                     ),
-                    const SizedBox(width: 20),
                     Expanded(
                         child: Text(
                       widget.north.get("province"),
                       style: TextStyle(
-                        fontSize: 15.0,
+                        fontSize: 16,
                       ),
                     )),
                   ],
                 ),
-                Divider(
-                  thickness: 1.0,
-                  color: Colors.black.withOpacity(0.8),
-                  height: 32.0,
+                SizedBox(
+                  height: 20.0,
                 ),
                 Text(
                   widget.north.get("detail"),
@@ -148,10 +141,21 @@ class _NorthDetailState extends State<NorthDetail> {
                     fontSize: 15.0,
                   ),
                 ),
-                Divider(
-                  thickness: 1.0,
-                  color: Colors.black.withOpacity(0.8),
-                  height: 32.0,
+                SizedBox(
+                  height: 10,
+                ),
+                Center(
+                  child: ElevatedButton.icon(
+                    onPressed: () {
+                      openRatingDialog(context, widget.north);
+                    },
+                    icon: Icon(
+                      Icons.star,
+                      size: 20,
+                      color: Colors.white,
+                    ),
+                    label: Text('Review'),
+                  ),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -203,19 +207,6 @@ class _NorthDetailState extends State<NorthDetail> {
               ],
             ),
           ),
-          Center(
-            child: ElevatedButton.icon(
-              onPressed: () {
-                openRatingDialog(context, widget.north);
-              },
-              icon: Icon(
-                Icons.star,
-                size: 20,
-                color: Colors.white,
-              ),
-              label: Text('เขียนรีวิว'),
-            ),
-          )
         ]),
       ),
     );

@@ -40,7 +40,7 @@ class _FavNorthDetailState extends State<FavNorthDetail> {
             children: [
               Image.network(
                 widget.north.get('img'),
-                height: 400.0,
+                height: 300.0,
                 width: size.width,
                 fit: BoxFit.cover,
               ),
@@ -79,20 +79,17 @@ class _FavNorthDetailState extends State<FavNorthDetail> {
                     ),
                   ],
                 ),
-                Divider(
-                  thickness: 1.0,
-                  color: Colors.black.withOpacity(0.8),
-                  height: 32.0,
+                SizedBox(
+                  height: 20,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Icon(
-                      Icons.share,
+                      Icons.location_pin,
                       size: 24,
-                      color: Colors.green,
+                      color: Colors.red,
                     ),
-                    const SizedBox(width: 20),
                     Expanded(
                         child: Text(
                       widget.north.get("province"),
@@ -102,10 +99,8 @@ class _FavNorthDetailState extends State<FavNorthDetail> {
                     )),
                   ],
                 ),
-                Divider(
-                  thickness: 1.0,
-                  color: Colors.black.withOpacity(0.8),
-                  height: 32.0,
+                SizedBox(
+                  height: 20,
                 ),
                 Text(
                   widget.north.get("detail"),
@@ -113,10 +108,21 @@ class _FavNorthDetailState extends State<FavNorthDetail> {
                     fontSize: 15.0,
                   ),
                 ),
-                Divider(
-                  thickness: 1.0,
-                  color: Colors.black.withOpacity(0.8),
-                  height: 32.0,
+                SizedBox(
+                  height: 10,
+                ),
+                Center(
+                  child: ElevatedButton.icon(
+                    onPressed: () {
+                      _onAlertButtonsPressed(context);
+                    },
+                    icon: Icon(
+                      Icons.star,
+                      size: 20,
+                      color: Colors.white,
+                    ),
+                    label: Text('Review'),
+                  ),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -168,19 +174,6 @@ class _FavNorthDetailState extends State<FavNorthDetail> {
               ],
             ),
           ),
-          Center(
-            child: ElevatedButton.icon(
-              onPressed: () {
-                _onAlertButtonsPressed(context);
-              },
-              icon: Icon(
-                Icons.star,
-                size: 20,
-                color: Colors.white,
-              ),
-              label: Text('เขียนรีวิว'),
-            ),
-          )
         ]),
       ),
     );

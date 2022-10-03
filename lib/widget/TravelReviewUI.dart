@@ -2,19 +2,20 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:myapp1/model/firestorebuckets.dart';
+import 'package:profanity_filter/profanity_filter.dart';
 import 'package:simple_star_rating/simple_star_rating.dart';
 
 import '../model/firestorefield.dart';
 
-class CentralReviewUI extends StatelessWidget {
+class TravelReviewUI extends StatelessWidget {
   final String? image, emailcomment, comment;
   final double? rating;
   final bool? isLess;
   final DateTime? datecomment;
-  final DocumentSnapshot central;
-  CentralReviewUI({
+  final DocumentSnapshot Travel;
+  TravelReviewUI({
     Key? key,
-    required this.central,
+    required this.Travel,
     this.image,
     this.emailcomment,
     this.comment,
@@ -28,12 +29,15 @@ class CentralReviewUI extends StatelessWidget {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     ScrollController controller = ScrollController();
-    String badString = "เหี้ย";
+
+    List<String> badString1 = ['เหี้ย', 'มึง', 'กู', 'ไอสัตว์'];
+    String badString = 'เหี้ย';
+
     return Container(
       child: StreamBuilder(
           stream: FirebaseFirestore.instance
               .collection("Travel")
-              .doc(central['name'])
+              .doc(Travel['name'])
               .collection("reviewtravel")
               .where("datecomment", isLessThanOrEqualTo: DateTime.now())
               .orderBy("datecomment")
@@ -118,8 +122,7 @@ class CentralReviewUI extends StatelessWidget {
                               GestureDetector(
                                 child: isLess!
                                     ? Text(
-                                        comment.replaceAll(
-                                            badString, '********'),
+                                        comment.replaceAll(badString, '***'),
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                             fontSize: 18,
@@ -127,8 +130,7 @@ class CentralReviewUI extends StatelessWidget {
                                                 Color.fromARGB(255, 0, 0, 0)),
                                       )
                                     : Text(
-                                        comment.replaceAll(
-                                            badString, '********'),
+                                        comment.replaceAll(badString, '***'),
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                             fontSize: 18,

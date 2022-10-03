@@ -36,9 +36,9 @@ class _ReviewisanState extends State<ReviewIsan> {
     map['emailcomment'] = currentUser!.displayName;
 
     await firebaseFirestore
-        .collection('isan')
+        .collection('Travel')
         .doc(name)
-        .collection("reviewisan")
+        .collection("reviewtravel")
         .doc()
         .set(map)
         .then((value) {

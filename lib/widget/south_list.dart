@@ -61,8 +61,8 @@ class _SouthListState extends State<SouthList> {
         Expanded(
           child: StreamBuilder(
               stream: FirebaseFirestore.instance
-                  .collection("south")
-                  .where("name", isGreaterThanOrEqualTo: inputText)
+                  .collection("Travel")
+                  .where("sector", isEqualTo: "ใต้")
                   .snapshots(),
               builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (!snapshot.hasData) {

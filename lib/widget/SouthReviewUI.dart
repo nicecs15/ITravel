@@ -32,9 +32,9 @@ class SouthReviewUI extends StatelessWidget {
     return Container(
       child: StreamBuilder(
           stream: FirebaseFirestore.instance
-              .collection(FirestoreBuckets.south)
+              .collection("Travel")
               .doc(south['name'])
-              .collection(FirestoreBuckets.reviewsouth)
+              .collection("reviewtravel")
               .where("datecomment", isLessThanOrEqualTo: DateTime.now())
               .orderBy("datecomment")
               .snapshots(),

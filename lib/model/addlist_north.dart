@@ -16,9 +16,15 @@ class AddListNorth extends StatefulWidget {
   final String? province;
   final String? detail;
   final String? urlPicture;
+  final String? sector;
 
   const AddListNorth(
-      {Key? key, this.name, this.detail, this.province, this.urlPicture})
+      {Key? key,
+      this.name,
+      this.detail,
+      this.province,
+      this.urlPicture,
+      this.sector})
       : super(key: key);
 
   @override
@@ -27,7 +33,7 @@ class AddListNorth extends StatefulWidget {
 
 class _AddListNorthState extends State<AddListNorth> {
   File? file;
-  String? name, province, detail, urlPicture;
+  String? name, province, detail, urlPicture, sector;
   final formKey = GlobalKey<FormState>();
   /////////////////////////////
   Widget uploadButton() {
@@ -110,9 +116,10 @@ class _AddListNorthState extends State<AddListNorth> {
     map['province'] = province;
     map['detail'] = detail;
     map['img'] = urlPicture;
+    map['sector'] = "เหนือ";
 
     await firebaseFirestore
-        .collection('north')
+        .collection('Travel')
         .doc(name)
         .set(map)
         .then((value) {

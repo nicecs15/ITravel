@@ -62,8 +62,8 @@ class _CentralListState extends State<CentralList> {
             Expanded(
               child: StreamBuilder(
                   stream: FirebaseFirestore.instance
-                      .collection("central")
-                      .where("name", isGreaterThanOrEqualTo: inputText)
+                      .collection("Travel")
+                      .where("sector", isEqualTo: "กลาง")
                       .snapshots(),
                   builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (!snapshot.hasData) {

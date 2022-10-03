@@ -103,8 +103,13 @@ class _AddListIsanState extends State<AddListIsan> {
     map['province'] = province;
     map['detail'] = detail;
     map['img'] = urlPicture;
+    map['sector'] = "อีสาน";
 
-    await firebaseFirestore.collection('isan').doc(name).set(map).then((value) {
+    await firebaseFirestore
+        .collection('Travel')
+        .doc(name)
+        .set(map)
+        .then((value) {
       print('เย้');
       Navigator.pop(context, '/isan_list');
     });

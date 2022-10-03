@@ -31,9 +31,9 @@ class IsanReviewUI extends StatelessWidget {
     return Container(
       child: StreamBuilder(
           stream: FirebaseFirestore.instance
-              .collection(FirestoreBuckets.isan)
+              .collection("Travel")
               .doc(isan['name'])
-              .collection(FirestoreBuckets.reviewisan)
+              .collection("reviewtravel")
               .where("datecomment", isLessThanOrEqualTo: DateTime.now())
               .orderBy("datecomment")
               .snapshots(),

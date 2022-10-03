@@ -103,9 +103,9 @@ class _AddListCentralState extends State<AddListCentral> {
     map['province'] = province;
     map['detail'] = detail;
     map['img'] = urlPicture;
-
+    map['sector'] = "กลาง";
     await firebaseFirestore
-        .collection('central')
+        .collection('Travel')
         .doc(name)
         .set(map)
         .then((value) {

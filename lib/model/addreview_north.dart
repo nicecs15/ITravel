@@ -35,9 +35,9 @@ class _ReviewNorthState extends State<ReviewNorth> {
     map['emailcomment'] = currentUser!.displayName;
 
     await firebaseFirestore
-        .collection('north')
+        .collection('Travel')
         .doc(name)
-        .collection("reviewnorth")
+        .collection("reviewtravel")
         .doc()
         .set(map)
         .then((value) {

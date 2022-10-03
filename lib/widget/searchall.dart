@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:myapp1/widget/TravelDetail.dart';
+import 'package:myapp1/widget/isandetail.dart';
 
 class SearchScreen extends StatefulWidget {
   SearchScreen({Key? key}) : super(key: key);
@@ -30,7 +32,7 @@ class _SearchScreenState extends State<SearchScreen> {
                         child: Container(
                             child: StreamBuilder(
                                 stream: FirebaseFirestore.instance
-                                    .collection("")
+                                    .collection("Travel")
                                     .where("name",
                                         isGreaterThanOrEqualTo: inputText)
                                     .snapshots(),
@@ -53,24 +55,32 @@ class _SearchScreenState extends State<SearchScreen> {
                                       Map<String, dynamic> data = document
                                           .data() as Map<String, dynamic>;
                                       return Card(
-                                        margin: EdgeInsets.all(6),
-                                        elevation: 3,
-                                        child: ListTile(
-                                          leading: ConstrainedBox(
-                                            constraints: BoxConstraints(
-                                              minWidth: 102,
-                                              minHeight: 56,
-                                              maxWidth: 102,
-                                              maxHeight: 56,
-                                            ),
-                                            child: Image.network(
-                                                document["img"],
-                                                fit: BoxFit.cover),
-                                          ),
-                                          title: Text(document["name"]),
-                                          subtitle: Text(document["province"]),
-                                        ),
-                                      );
+                                          margin: EdgeInsets.all(6),
+                                          elevation: 3,
+                                          child: ListTile(
+                                              leading: ConstrainedBox(
+                                                constraints: BoxConstraints(
+                                                  minWidth: 102,
+                                                  minHeight: 56,
+                                                  maxWidth: 102,
+                                                  maxHeight: 56,
+                                                ),
+                                                child: Image.network(
+                                                    document["img"],
+                                                    fit: BoxFit.cover),
+                                              ),
+                                              title: Text(document["name"]),
+                                              subtitle:
+                                                  Text(document["province"]),
+                                              onTap: () {
+                                                Navigator.of(context).push(
+                                                    MaterialPageRoute(builder:
+                                                        (BuildContext context) {
+                                                  return TravelDetail(
+                                                    Travel: document,
+                                                  );
+                                                }));
+                                              }));
                                     }).toList(),
                                   );
                                 }))),

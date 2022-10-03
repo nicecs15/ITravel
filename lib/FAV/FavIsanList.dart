@@ -63,8 +63,8 @@ class _FavIsanListState extends State<FavIsanList> {
         Expanded(
           child: StreamBuilder(
               stream: FirebaseFirestore.instance
-                  .collection("isan")
-                  .where("name", isGreaterThanOrEqualTo: inputText)
+                  .collection("Travel")
+                  .where("sector", isEqualTo: "อีสาน")
                   .snapshots(),
               builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (!snapshot.hasData) {

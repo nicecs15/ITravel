@@ -1,44 +1,45 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:myapp1/model/addreview_isan.dart';
+import 'package:myapp1/anonymous.dart/AnyReview.dart';
+import 'package:myapp1/anonymous.dart/anyReviewUI.dart';
+
 import 'package:myapp1/utility/my_style.dart';
-import 'package:myapp1/widget/IsanReview.dart';
-import 'package:myapp1/widget/IsanReviewUI.dart';
+import 'package:myapp1/widget/authen.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
-import '../widget/authen.dart';
+class FavanyDetail extends StatefulWidget {
+  final DocumentSnapshot any;
 
-class FavIsanDetail extends StatefulWidget {
-  final DocumentSnapshot isan;
+  FavanyDetail({required this.any});
 
-  FavIsanDetail({required this.isan});
   @override
-  State<FavIsanDetail> createState() => _FavIsanDetailState();
+  State<FavanyDetail> createState() => _FavanyDetailState();
 }
 
-class _FavIsanDetailState extends State<FavIsanDetail> {
-  Future getisan() async {
+class _FavanyDetailState extends State<FavanyDetail> {
+  bool isMore = false;
+
+  Future getany() async {
     var firestore = FirebaseFirestore.instance;
-    QuerySnapshot qn = await firestore.collection("isan").get();
+    QuerySnapshot qn = await firestore.collection("Travel").get();
     return qn.docs;
   }
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    bool isMore = false;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: MyStyle().primaryColor,
-        title: Text('สถานที่ท่องเที่ยวภาคอีสาน'),
+        title: Text(widget.any['name']),
       ),
       body: SingleChildScrollView(
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Stack(
             children: [
               Image.network(
-                widget.isan.get('img'),
+                widget.any.get('img'),
                 height: 300.0,
                 width: size.width,
                 fit: BoxFit.cover,
@@ -55,7 +56,7 @@ class _FavIsanDetailState extends State<FavIsanDetail> {
                   children: [
                     Container(
                       child: Text(
-                        widget.isan.get("name"),
+                        widget.any.get("name"),
                         style: TextStyle(
                           fontSize: 24.0,
                         ),
@@ -90,7 +91,7 @@ class _FavIsanDetailState extends State<FavIsanDetail> {
                     ),
                     Expanded(
                         child: Text(
-                      widget.isan.get("province"),
+                      widget.any.get("province"),
                       style: TextStyle(
                         fontSize: 15.0,
                       ),
@@ -101,7 +102,7 @@ class _FavIsanDetailState extends State<FavIsanDetail> {
                   height: 20,
                 ),
                 Text(
-                  widget.isan.get("detail"),
+                  widget.any.get("detail"),
                   style: TextStyle(
                     fontSize: 15.0,
                   ),
@@ -129,7 +130,7 @@ class _FavIsanDetailState extends State<FavIsanDetail> {
                     GestureDetector(
                       onTap: () => Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => IsanReview(isan: widget.isan),
+                          builder: (context) => AnyReview(any: widget.any),
                         ),
                       ),
                       child: Padding(
@@ -147,7 +148,7 @@ class _FavIsanDetailState extends State<FavIsanDetail> {
                     padding: EdgeInsets.only(bottom: 8, top: 8),
                     itemCount: 1,
                     itemBuilder: (context, index) {
-                      return IsanReviewUI(
+                      return AnyReviewUI(
                         image: 'images/logo.png',
                         emailcomment: "Username",
                         datecomment: DateTime.now(),
@@ -157,7 +158,7 @@ class _FavIsanDetailState extends State<FavIsanDetail> {
                           isMore = !isMore;
                         }),
                         isLess: isMore,
-                        isan: widget.isan,
+                        Any: widget.any,
                       );
                     },
                     separatorBuilder: (context, index) {
@@ -177,12 +178,12 @@ class _FavIsanDetailState extends State<FavIsanDetail> {
   }
 }
 
-openRatingDialog(context, isan) {
+openRatingDialog(context, any) {
   showDialog(
       context: context,
       barrierDismissible: true,
-      builder: (context) => ReviewIsan(
-            isan: isan,
+      builder: (context) => AnyReview(
+            any: any,
           ));
 }
 

@@ -63,8 +63,8 @@ class _FavNorthListState extends State<FavNorthList> {
           Expanded(
             child: StreamBuilder(
                 stream: FirebaseFirestore.instance
-                    .collection("north")
-                    .where("name", isGreaterThanOrEqualTo: inputText)
+                    .collection("Travel")
+                    .where("sector", isEqualTo: "เหนือ")
                     .snapshots(),
                 builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                   if (!snapshot.hasData) {

@@ -24,6 +24,7 @@ class _FavSouthListState extends State<FavSouthList> {
   }
 
   var inputText = "";
+  String nametext = '';
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -43,7 +44,7 @@ class _FavSouthListState extends State<FavSouthList> {
           child: SizedBox(
             height: size.height / 14,
             width: size.width / 1.15,
-            child: TextField(
+            child: TextFormField(
                 decoration: InputDecoration(
                     hintText: "ค้นหาสถานที่ท่องเที่ยว",
                     hintStyle: TextStyle(
@@ -65,8 +66,8 @@ class _FavSouthListState extends State<FavSouthList> {
         Expanded(
           child: StreamBuilder(
               stream: FirebaseFirestore.instance
-                  .collection("south")
-                  .where("name", isGreaterThanOrEqualTo: inputText)
+                  .collection("Travel")
+                  .where("sector", isGreaterThanOrEqualTo: "ใต้")
                   .snapshots(),
               builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (!snapshot.hasData) {

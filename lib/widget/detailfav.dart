@@ -66,7 +66,6 @@ class _FavDetailState extends State<FavDetail> {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Container(
-                      width: size.width / 2,
                       child: Text(
                         widget.fav.get("name"),
                         style: TextStyle(

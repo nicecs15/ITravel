@@ -32,9 +32,9 @@ class FavReviewUI extends StatelessWidget {
     return Container(
       child: StreamBuilder(
           stream: FirebaseFirestore.instance
-              .collection("users_favorite_items")
+              .collection("Travel")
               .doc(fav['name'])
-              .collection("item")
+              .collection("reviewtravel")
               .where("datecomment", isLessThanOrEqualTo: DateTime.now())
               .orderBy("datecomment")
               .snapshots(),

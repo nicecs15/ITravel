@@ -30,8 +30,7 @@ class ReviewUI extends StatelessWidget {
     final Size size = MediaQuery.of(context).size;
     ScrollController controller = ScrollController();
 
-    List<String> badString1 = ['เหี้ย', 'มึง', 'กู', 'ไอสัตว์'];
-    String badString = 'เหี้ย';
+    List<String> badString1 = ['เหี้ย', 'ไอสัตว์', 'ควย'];
 
     return Container(
       child: StreamBuilder(
@@ -122,7 +121,10 @@ class ReviewUI extends StatelessWidget {
                               GestureDetector(
                                 child: isLess!
                                     ? Text(
-                                        comment.replaceAll(badString, '***'),
+                                        comment
+                                            .replaceAll(badString1[0], '****')
+                                            .replaceAll(badString1[1], '****')
+                                            .replaceAll(badString1[2], '****'),
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                             fontSize: 18,
@@ -130,7 +132,10 @@ class ReviewUI extends StatelessWidget {
                                                 Color.fromARGB(255, 0, 0, 0)),
                                       )
                                     : Text(
-                                        comment.replaceAll(badString, '***'),
+                                        comment
+                                            .replaceAll(badString1[0], '****')
+                                            .replaceAll(badString1[1], '****')
+                                            .replaceAll(badString1[2], '****'),
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                             fontSize: 18,

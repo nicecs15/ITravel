@@ -28,6 +28,7 @@ class FavReviewUI extends StatelessWidget {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     ScrollController controller = ScrollController();
+    List<String> badString1 = ['เหี้ย', 'ไอสัตว์', 'ควย'];
 
     return Container(
       child: StreamBuilder(
@@ -118,7 +119,10 @@ class FavReviewUI extends StatelessWidget {
                               GestureDetector(
                                 child: isLess!
                                     ? Text(
-                                        comment,
+                                        comment
+                                            .replaceAll(badString1[0], '****')
+                                            .replaceAll(badString1[1], '****')
+                                            .replaceAll(badString1[2], '****'),
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                             fontSize: 18,
@@ -126,7 +130,10 @@ class FavReviewUI extends StatelessWidget {
                                                 Color.fromARGB(255, 0, 0, 0)),
                                       )
                                     : Text(
-                                        comment,
+                                        comment
+                                            .replaceAll(badString1[0], '****')
+                                            .replaceAll(badString1[1], '****')
+                                            .replaceAll(badString1[2], '****'),
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                             fontSize: 18,

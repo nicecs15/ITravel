@@ -56,6 +56,7 @@ class TravelReviewUI extends StatelessWidget {
                     return ListView.separated(
                       controller: controller,
                       shrinkWrap: true,
+                      reverse: true,
                       itemCount: snapshot.data!.docs.length,
                       itemBuilder: (BuildContext context, int index) {
                         String comment = snapshot.data!.docs[index]['comment'];

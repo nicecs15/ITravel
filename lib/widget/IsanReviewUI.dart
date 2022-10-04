@@ -51,6 +51,7 @@ class IsanReviewUI extends StatelessWidget {
                   } else {
                     return ListView.separated(
                       controller: controller,
+                      reverse: true,
                       shrinkWrap: true,
                       itemCount: snapshot.data!.docs.length,
                       itemBuilder: (BuildContext context, int index) {

@@ -68,7 +68,6 @@ class _IsanDetailState extends State<IsanDetail> {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Container(
-                      width: size.width / 2,
                       child: Text(
                         widget.isan.get("name"),
                         style: Theme.of(context).textTheme.headlineSmall,

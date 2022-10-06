@@ -124,7 +124,6 @@ class FavReviewUI extends StatelessWidget {
                                             .replaceAll(badString1[0], '****')
                                             .replaceAll(badString1[1], '****')
                                             .replaceAll(badString1[2], '****'),
-                                        overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                             fontSize: 18,
                                             color:
@@ -135,7 +134,6 @@ class FavReviewUI extends StatelessWidget {
                                             .replaceAll(badString1[0], '****')
                                             .replaceAll(badString1[1], '****')
                                             .replaceAll(badString1[2], '****'),
-                                        overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                             fontSize: 18,
                                             color:

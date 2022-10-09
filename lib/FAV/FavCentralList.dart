@@ -66,7 +66,7 @@ class _FavCentralListState extends State<FavCentralList> {
             child: StreamBuilder(
                 stream: FirebaseFirestore.instance
                     .collection("Travel")
-                    .where("sector", isEqualTo: "กลาง")
+                    .where("central", isGreaterThanOrEqualTo: inputText)
                     .snapshots(),
                 builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                   if (!snapshot.hasData) {

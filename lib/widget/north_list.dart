@@ -61,7 +61,7 @@ class _NorthListState extends State<NorthList> {
             child: StreamBuilder(
                 stream: FirebaseFirestore.instance
                     .collection("Travel")
-                    .where("sector", isEqualTo: "เหนือ")
+                    .where("north", isGreaterThanOrEqualTo: inputText)
                     .snapshots(),
                 builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                   if (!snapshot.hasData) {

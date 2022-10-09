@@ -116,7 +116,7 @@ class _AddListNorthState extends State<AddListNorth> {
     map['province'] = province;
     map['detail'] = detail;
     map['img'] = urlPicture;
-    map['sector'] = "เหนือ";
+    map['north'] = name;
 
     await firebaseFirestore
         .collection('Travel')

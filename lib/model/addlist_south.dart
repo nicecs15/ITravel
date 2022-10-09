@@ -103,7 +103,7 @@ class _AddListSouthState extends State<AddListSouth> {
     map['province'] = province;
     map['detail'] = detail;
     map['img'] = urlPicture;
-    map['sector'] = "ใต้";
+    map['south'] = name;
     await firebaseFirestore
         .collection('Travel')
         .doc(name)

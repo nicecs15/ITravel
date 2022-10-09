@@ -92,7 +92,7 @@ class _CentralDetailState extends State<CentralDetail> {
                           return Padding(
                             padding: const EdgeInsets.only(right: 8),
                             child: CircleAvatar(
-                              backgroundColor: Colors.red,
+                              backgroundColor: Colors.white10,
                               child: IconButton(
                                   onPressed: () =>
                                       snapshot.data.docs.length == 0
@@ -101,12 +101,13 @@ class _CentralDetailState extends State<CentralDetail> {
                                   icon: snapshot.data.docs.length == 0
                                       ? Icon(
                                           Icons.favorite_outline,
-                                          size: 18,
-                                          color: Colors.white,
+                                          size: 30,
+                                          color: Colors.red,
                                         )
                                       : Icon(
                                           Icons.favorite,
-                                          color: Colors.white,
+                                          size: 30,
+                                          color: Colors.red,
                                         )),
                             ),
                           );

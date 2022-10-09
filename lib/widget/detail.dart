@@ -91,7 +91,7 @@ class _NorthDetailState extends State<NorthDetail> {
                           return Padding(
                             padding: const EdgeInsets.only(right: 8),
                             child: CircleAvatar(
-                              backgroundColor: Colors.red,
+                              backgroundColor: Colors.white10,
                               child: IconButton(
                                   onPressed: () =>
                                       snapshot.data.docs.length == 0
@@ -100,12 +100,13 @@ class _NorthDetailState extends State<NorthDetail> {
                                   icon: snapshot.data.docs.length == 0
                                       ? Icon(
                                           Icons.favorite_outline,
-                                          size: 18,
-                                          color: Colors.white,
+                                          size: 30,
+                                          color: Colors.red,
                                         )
                                       : Icon(
                                           Icons.favorite,
-                                          color: Colors.white,
+                                          size: 30,
+                                          color: Colors.red,
                                         )),
                             ),
                           );

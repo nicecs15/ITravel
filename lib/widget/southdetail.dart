@@ -104,12 +104,12 @@ class _SouthDetailState extends State<SouthDetail> {
                                       ? Icon(
                                           Icons.favorite_outline,
                                           size: 30,
-                                          color: Colors.white,
+                                          color: Colors.red,
                                         )
                                       : Icon(
                                           Icons.favorite,
                                           size: 30,
-                                          color: Colors.white,
+                                          color: Colors.red,
                                         )),
                             ),
                           );

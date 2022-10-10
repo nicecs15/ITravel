@@ -145,6 +145,7 @@ class _AddListNorthState extends State<AddListNorth> {
   Widget provinceForm() {
     return SizedBox(
         width: MediaQuery.of(context).size.width * 0.6,
+        height: MediaQuery.of(context).size.height * 0.1,
         child: TextFormField(
           onChanged: (String value) {
             province = value.trim();
@@ -159,14 +160,16 @@ class _AddListNorthState extends State<AddListNorth> {
   Widget detailForm() {
     return SizedBox(
         width: MediaQuery.of(context).size.width * 0.6,
+        height: MediaQuery.of(context).size.height * 0.2,
         child: TextFormField(
           onChanged: (String value) {
             detail = value.trim();
           },
+          maxLines: 5,
           decoration: InputDecoration(
-            labelText: 'รายละเอียด',
-            icon: Icon(Icons.details),
-          ),
+              labelText: 'รายละเอียด',
+              icon: Icon(Icons.details),
+              border: OutlineInputBorder()),
         ));
   }
 
